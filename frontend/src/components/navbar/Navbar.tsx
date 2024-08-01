@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
   return (
     <NavbarContainer>
       <LogoContainer>
-        <LogoText>BARBER SHOP</LogoText>
+        <NavLink href="/"><LogoText>BARBER SHOP</LogoText></NavLink>
         <LogoImage src="/logo.png" alt="Logo" />
       </LogoContainer>
       <NavLinks>
