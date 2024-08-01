@@ -3,9 +3,9 @@ import { MapContainer, TileLayer, Marker, Popup, ZoomControl } from 'react-leafl
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-// Configuração do ícone do marcador
+ 
 const customIcon = new L.Icon({
-  iconUrl: '/location.png', // Coloque o caminho para um ícone personalizado, se desejar
+  iconUrl: '/location.png',  
   iconSize: [32, 32],
   iconAnchor: [16, 32],
   popupAnchor: [0, -32],
