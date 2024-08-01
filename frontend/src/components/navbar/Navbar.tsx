@@ -1,0 +1,28 @@
+import React from 'react';
+import {
+  NavbarContainer,
+  LogoContainer,
+  LogoText,
+  LogoImage,
+  NavLinks,
+  NavLink
+} from './Navbar.styles';
+
+const Navbar: React.FC = () => {
+  return (
+    <NavbarContainer>
+      <LogoContainer>
+        <LogoText>BARBER SHOP</LogoText>
+        <LogoImage src="/logo.png" alt="Logo" />
+      </LogoContainer>
+      <NavLinks>
+        <NavLink href="/agendamentos">Agendamentos</NavLink>
+        <NavLink href="/perfil">Perfil</NavLink>
+        <NavLink href="/localizacao">Localização</NavLink>
+        <NavLink href="/sair">Sair</NavLink>
+      </NavLinks>
+    </NavbarContainer>
+  );
+};
+
+export default Navbar;
