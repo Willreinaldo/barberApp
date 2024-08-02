@@ -3,6 +3,7 @@ import React from 'react';
 //import { SchedulingProvider } from './contexts/SchedulingContext';
 import Home from './pages/home/Home';
 import Local from './pages/Local/Local';
+import Profile from './pages/profile/Profile';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const App: React.FC = () => {
@@ -11,6 +12,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/local" element={<Local />} />
+            <Route path="/profile" element={<Profile />} />
             {/* Adicione outras rotas conforme necessário */}
           </Routes>
         </Router>
