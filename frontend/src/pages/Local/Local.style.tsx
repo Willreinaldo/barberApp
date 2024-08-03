@@ -6,6 +6,8 @@ export const LocationContainer = styled.div`
   align-items: center;
   padding: 20px;
   background-color: #0051B1;
+  max-height: 100vh;
+  
 `;
 
 export const Title = styled.h1`
