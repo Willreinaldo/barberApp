@@ -31,6 +31,11 @@ const TitleLogo = styled.h1`
 
 const Modal = styled.div`
   /* background: #fff; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
   border-color: aliceblue;
   padding: 20px;
   border-radius: 8px;
@@ -46,23 +51,42 @@ const Title = styled.h1`
 `;
 
 const Input = styled.input`
-  width: 90%;
+  width: 80%;
   padding: 10px;
   margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
   outline: none;
+  opacity: 50%;
 `;
 
 const Button = styled.button`
   padding: 10px 20px;
   border: none;
+  width: 85%;
   border-radius: 4px;
-  background-color: #007bff;
+  background-color: #fff;
   color: white;
+  font-size: 18px;
+  color: #000;
   cursor: pointer;
   &:hover {
-    background-color: #0056b3;
+    background-color: #cccccd;
+  }
+`;
+
+const Navigator = styled.a`
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  margin-top: 10px;
+
+  span {
+    cursor: pointer;
+    font-weight: bold;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
 
@@ -96,7 +120,10 @@ const LoginPage: React.FC = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button onClick={handleLogin}>Login</Button>
+        <Button onClick={handleLogin}>Entrar</Button>
+        <Navigator href="/signin">
+          Não possui cadastro? <span>Cadastrar</span>
+        </Navigator>
       </Modal>
     </ModalBackground>
   );
