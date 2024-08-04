@@ -7,6 +7,7 @@ export const NavbarContainer = styled.nav`
   padding: 10px 20px;
   background-color: #0051B1;
   color: #fff;
+  height: 100px;
 `;
 
 export const LogoContainer = styled.div`
@@ -17,6 +18,7 @@ export const LogoContainer = styled.div`
 export const LogoText = styled.h1`
   margin: 0;
   font-size: 1.5rem;
+  font-weight: bold;
 `;
 
 export const LogoImage = styled.img`

@@ -4,15 +4,16 @@ export const LocationContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 20px;
   background-color: #0051B1;
-  max-height: 100vh;
+  height: 94vh;
   
 `;
 
 export const Title = styled.h1`
   font-size: 2rem;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   color: #fff;
 `;
 
