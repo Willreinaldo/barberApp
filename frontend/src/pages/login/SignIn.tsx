@@ -62,8 +62,8 @@ const SignInPage: React.FC = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button onClick={handleLogin}>Entrar</Button>
-        <Navigator href="/login">
+        <Button onClick={handleLogin}>Criar Conta</Button>
+        <Navigator onClick={() => navigate("/login")}>
           Já possui cadastro? <span>Login</span>
         </Navigator>
       </Modal>
