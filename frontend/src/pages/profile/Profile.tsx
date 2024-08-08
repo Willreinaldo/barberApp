@@ -1,13 +1,10 @@
 // src/pages/profile/Profile.tsx
 import React, { useState } from 'react';
-import ReactCrop, { Crop, makeAspectCrop } from 'react-image-crop';
-import 'react-image-crop/dist/ReactCrop.css';
-import Navbar from '../../components/navbar/Navbar';
 import Footer from '../../components/footer/Footer';
-import { ProfileContainer, PhotoUpload, Input, Button } from './Profile.Styles';
+import { ProfileContainer, Input, Button } from './Profile.Styles';
+import AvatarEdit from '../../components/avatar/AvatarEdit';
 
 const Profile: React.FC = () => {
-  // Valores iniciais
   const initialValues = {
     name: 'John Doe',
     email: 'john.doe@example.com',
@@ -18,60 +15,35 @@ const Profile: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [values, setValues] = useState(initialValues);
   const [tempValues, setTempValues] = useState(initialValues);
-
-  // Estados para imagem e recorte
-  const [image, setImage] = useState<string | null>(null);
-  const [crop, setCrop] = useState<Crop>();
-  const [croppedImageUrl, setCroppedImageUrl] = useState<string | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string>('./avatar.png'); // Inicialize com o valor padrão
 
   const handleEditClick = () => {
     setIsEditing(true);
-    setTempValues(values);  
+    setTempValues(values);
   };
 
   const handleSaveClick = () => {
     setIsEditing(false);
-    setValues(tempValues); 
+    setValues(tempValues);
   };
 
   const handleCancelClick = () => {
     setIsEditing(false);
-    setTempValues(values); // Restaura os valores anteriores
+    setTempValues(values);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTempValues({ ...tempValues, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => setImage(reader.result as string);
-      reader.readAsDataURL(file);
-    }
+  const handleAvatarChange = (newAvatarUrl: string) => {
+    setAvatarUrl(newAvatarUrl);
   };
 
   return (
     <>
-      <Navbar />
       <ProfileContainer>
-        <PhotoUpload>
-          {croppedImageUrl ? (
-            <img src={croppedImageUrl} alt="Foto de perfil" style={{ width: '150px', height: '150px', borderRadius: '50%' }} />
-          ) : (
-            <div>
-              <input type="file" accept="image/*" onChange={handleFileChange} />
-              {image && (
-                <ReactCrop
-                  crop={crop}
-                  onChange={setCrop}
-                  style={{ width: '150px', height: '150px', borderRadius: '50%' }}
-                />
-              )}
-            </div>
-          )}
-        </PhotoUpload>
+        <AvatarEdit onAvatarChange={handleAvatarChange} />
         <Input
           type="text"
           name="name"
