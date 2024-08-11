@@ -1,11 +1,10 @@
 // src/pages/profile/Profile.tsx
 import React, { useState } from 'react';
-import Navbar from '../../components/navbar/Navbar';
 import Footer from '../../components/footer/Footer';
-import { ProfileContainer, PhotoUpload, Input, Button } from './Profile.Styles';
+import { ProfileContainer, Input, Button } from './Profile.Styles';
+import AvatarEdit from '../../components/avatar/AvatarEdit';
 
 const Profile: React.FC = () => {
-  // Valores iniciais
   const initialValues = {
     name: 'John Doe',
     email: 'john.doe@example.com',
@@ -16,33 +15,35 @@ const Profile: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [values, setValues] = useState(initialValues);
   const [tempValues, setTempValues] = useState(initialValues);
+  const [avatarUrl, setAvatarUrl] = useState<string>('./avatar.png'); // Inicialize com o valor padrão
 
   const handleEditClick = () => {
     setIsEditing(true);
-    setTempValues(values); // Armazena os valores atuais como temporários
+    setTempValues(values);
   };
 
   const handleSaveClick = () => {
     setIsEditing(false);
-    setValues(tempValues); // Atualiza os valores finais
+    setValues(tempValues);
   };
 
   const handleCancelClick = () => {
     setIsEditing(false);
-    setTempValues(values); // Restaura os valores anteriores
+    setTempValues(values);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTempValues({ ...tempValues, [e.target.name]: e.target.value });
   };
 
+  const handleAvatarChange = (newAvatarUrl: string) => {
+    setAvatarUrl(newAvatarUrl);
+  };
+
   return (
     <>
-      <Navbar />
       <ProfileContainer>
-        <PhotoUpload>
-          <span>Foto</span>
-        </PhotoUpload>
+        <AvatarEdit onAvatarChange={handleAvatarChange} />
         <Input
           type="text"
           name="name"
