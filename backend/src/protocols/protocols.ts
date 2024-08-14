@@ -7,7 +7,7 @@ export type ApplicationError = {
 
 export type SignInParams = Pick<User, "email" | "password">;
 
-export type SignUpParams = Pick<User, "name" | "email" | "password">;
+export type SignUpParams = Pick<User, "name" | "email" | "password" | "phone">;
 
 // export type ClassParams = Pick<Classes, "name" | "quantity">;
 
