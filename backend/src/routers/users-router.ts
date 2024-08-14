@@ -1,6 +1,6 @@
 import { signIn, signUp } from "@/controllers";
-import { validateSchema } from "@/middlewares";
-import { signInSchema, signUpSchema } from "@/schemas";
+import { validateSchema } from "../middlewares/validate-schema";
+import { signInSchema,signUpSchema } from "../schemas/users-schemas";
 import { Router } from "express";
 
 const userRoutes = Router();
