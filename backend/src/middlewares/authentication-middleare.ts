@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 import * as jwt from "jsonwebtoken";
-import { unauthorizedError } from "@/errors";
+import { unauthorizedError } from "../errors/unauthorized-error";
 import prisma from "../config/database";
+import "dotenv/config"
 
 export async function authenticateToken(
   req: AuthenticatedRequest,
@@ -16,7 +17,9 @@ export async function authenticateToken(
   if (!token) return generateUnauthorizedResponse(res);
 
   try {
-    const { userId } = jwt.verify(token, process.env.JWT_SECRET) as JWTPayload;
+    const secretKey = process.env.JWT_SECRET as string;
+
+    const { userId } = jwt.verify(token, secretKey) as JWTPayload;
 
     const session = await prisma.session.findFirst({
       where: {
@@ -40,5 +43,5 @@ function generateUnauthorizedResponse(res: Response) {
 export type AuthenticatedRequest = Request & JWTPayload;
 
 type JWTPayload = {
-  userId: number;
+  userId?: number;
 };
