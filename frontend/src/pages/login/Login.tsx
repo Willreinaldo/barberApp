@@ -14,16 +14,28 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const LoginPage: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleLogin = () => {
-    // Lógica de login aqui
-    console.log("Email:", email);
-    console.log("Password:", password);
-  };
-
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
   const navigate = useNavigate();
+
+  function handleForm(e:any) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
+  async function doLogin(e:any) {
+    e.preventDefault();
+    try {
+      const userData = await signIn(form);
+      // setUserData(userData);
+      toast("Login realizado com sucesso!");
+      navigate("/");
+    } catch (err) {
+      console.log(err.response.data.message);
+      toast(err.response.data.message);
+    }
+  }
+
 
   return (
     <ModalBackground>
@@ -35,17 +47,19 @@ const LoginPage: React.FC = () => {
         <Title>Login</Title>
         <Input
           type="email"
+          name="email"
           placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={form.email}
+          onChange={handleForm}
         />
         <Input
           type="password"
+          name="password"
           placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={form.password}
+          onChange={handleForm}
         />
-        <Button onClick={handleLogin}>Entrar</Button>
+        <Button onClick={doLogin}>Entrar</Button>
         <Navigator onClick={() => navigate("/signin")}>
           Não possui cadastro? <span>Cadastrar</span>
         </Navigator>
