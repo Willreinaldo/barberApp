@@ -12,6 +12,7 @@ import {
   Navigator,
 } from "./Login.Styles";
 import { useNavigate } from "react-router-dom";
+import { signIn } from "../../services/signIn";
 
 const LoginPage: React.FC = () => {
   const [form, setForm] = useState({
@@ -28,11 +29,10 @@ const LoginPage: React.FC = () => {
     try {
       const userData = await signIn(form);
       // setUserData(userData);
-      toast("Login realizado com sucesso!");
+      console.log(userData);
       navigate("/");
     } catch (err) {
-      console.log(err.response.data.message);
-      toast(err.response.data.message);
+      console.log(err);
     }
   }
 
@@ -43,7 +43,7 @@ const LoginPage: React.FC = () => {
         <Logo src={logo} alt="Logo" />
         <TitleLogo>BARBER SHOP</TitleLogo>
       </Container>
-      <Modal>
+      <Modal onSubmit={doLogin}>
         <Title>Login</Title>
         <Input
           type="email"
@@ -59,7 +59,7 @@ const LoginPage: React.FC = () => {
           value={form.password}
           onChange={handleForm}
         />
-        <Button onClick={doLogin}>Entrar</Button>
+        <Button type="submit">Entrar</Button>
         <Navigator onClick={() => navigate("/signin")}>
           Não possui cadastro? <span>Cadastrar</span>
         </Navigator>
@@ -69,3 +69,7 @@ const LoginPage: React.FC = () => {
 };
 
 export default LoginPage;
+function toast(arg0: string) {
+  throw new Error("Function not implemented.");
+}
+
