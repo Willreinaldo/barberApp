@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/navbar/Navbar';
-import styled from 'styled-components';
+import { AgendamentosContainer, PageContainer, Table } from './Agendamentos.styles';
 
 // Definindo o tipo para os agendamentos
 type AgendamentoType = {
@@ -56,8 +56,10 @@ const Agendamentos: React.FC = () => {
   return (
     <>
       <Navbar />
-      
+      <PageContainer>
+        <AgendamentosContainer>
           <h1>Agendamentos</h1>
+          <Table>
             <thead>
               <tr>
                 <th>Data</th>
@@ -88,6 +90,9 @@ const Agendamentos: React.FC = () => {
                 </tr>
               ))}
             </tbody>
+          </Table>
+        </AgendamentosContainer>
+      </PageContainer>
     </>
   );
 };
