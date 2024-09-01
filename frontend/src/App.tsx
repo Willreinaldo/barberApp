@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Local from "./pages/Local/Local";
 import Profile from "./pages/profile/Profile";
+import Agendamentos from "./pages/agendamentos/Agendamentos";
 import LoginPage from "./pages/login/Login";
 import SignInPage from "./pages/login/SignIn";
 import GlobalStyle from "./Reset";
@@ -20,6 +21,7 @@ const App: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/local" element={<Local />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/agendamentos" element={<Agendamentos />} />
           </Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signin" element={<SignInPage />} />
