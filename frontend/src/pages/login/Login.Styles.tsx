@@ -30,7 +30,7 @@ export const TitleLogo = styled.h1`
   margin-bottom: 20px;
 `;
 
-export const Modal = styled.div`
+export const Modal = styled.form`
   /* background: #fff; */
   display: flex;
   flex-direction: column;

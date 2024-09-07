@@ -12,23 +12,32 @@ import {
   Button,
   Navigator,
 } from "./Login.Styles";
+import { signUp } from "../../services/signUp";
 
 const SignInPage: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [name,setName] = useState("");
-  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
 
-  const handleLogin = () => {
-    // Lógica de login aqui
-    console.log("Email:", email);
-    console.log("phone:", phone);
-    console.log("name:", name);
-    console.log("Password:", password);
-
-  };
-
-  const navigate = useNavigate()
+  function handleForm(e: any) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
+  async function createAccount(e:any) {
+    e.preventDefault();
+    try {
+      const userData = await signUp(form);
+      console.log(userData);
+      alert("Cadastro realizado com sucesso!");
+      navigate("/login");
+    } catch (err) {
+      console.warn(err);
+      alert("Usuário ou senha indisponiveis");
+    }
+  }
 
   return (
     <ModalBackground>
@@ -36,33 +45,37 @@ const SignInPage: React.FC = () => {
         <Logo src={logo} alt="Logo" />
         <TitleLogo>BARBER SHOP</TitleLogo>
       </Container>
-      <Modal>
+      <Modal onSubmit={createAccount}>
         <Title>Cadastro</Title>
         <Input
           type="email"
-          placeholder="Informe seu email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          name="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={handleForm}
         />
         <Input
           type="text"
+          name="name"
           placeholder="Informe seu nome"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={form.name}
+          onChange={handleForm}
         />
         <Input
           type="text"
+          name="phone"
           placeholder="Informe seu telefone"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          value={form.phone}
+          onChange={handleForm}
         />
         <Input
           type="password"
+          name="password"
           placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={form.password}
+          onChange={handleForm}
         />
-        <Button onClick={handleLogin}>Criar Conta</Button>
+        <Button type="submit">Criar Conta</Button>
         <Navigator onClick={() => navigate("/login")}>
           Já possui cadastro? <span>Login</span>
         </Navigator>

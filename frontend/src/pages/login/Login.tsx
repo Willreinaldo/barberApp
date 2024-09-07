@@ -12,18 +12,30 @@ import {
   Navigator,
 } from "./Login.Styles";
 import { useNavigate } from "react-router-dom";
+import { signIn } from "../../services/signIn";
 
 const LoginPage: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleLogin = () => {
-    // Lógica de login aqui
-    console.log("Email:", email);
-    console.log("Password:", password);
-  };
-
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
   const navigate = useNavigate();
+
+  function handleForm(e:any) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
+  async function doLogin(e:any) {
+    e.preventDefault();
+    try {
+      const userData = await signIn(form);
+      // setUserData(userData);
+      console.log(userData);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
 
   return (
     <ModalBackground>
@@ -31,21 +43,23 @@ const LoginPage: React.FC = () => {
         <Logo src={logo} alt="Logo" />
         <TitleLogo>BARBER SHOP</TitleLogo>
       </Container>
-      <Modal>
+      <Modal onSubmit={doLogin}>
         <Title>Login</Title>
         <Input
           type="email"
+          name="email"
           placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={form.email}
+          onChange={handleForm}
         />
         <Input
           type="password"
+          name="password"
           placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={form.password}
+          onChange={handleForm}
         />
-        <Button onClick={handleLogin}>Entrar</Button>
+        <Button type="submit">Entrar</Button>
         <Navigator onClick={() => navigate("/signin")}>
           Não possui cadastro? <span>Cadastrar</span>
         </Navigator>
@@ -55,3 +69,7 @@ const LoginPage: React.FC = () => {
 };
 
 export default LoginPage;
+function toast(arg0: string) {
+  throw new Error("Function not implemented.");
+}
+

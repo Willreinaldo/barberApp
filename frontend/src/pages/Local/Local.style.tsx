@@ -7,7 +7,7 @@ export const LocationContainer = styled.div`
   justify-content: center;
   padding: 20px;
   background-color: #0051B1;
-  height: 94vh;
+  height: 90vh;
   
 `;
 

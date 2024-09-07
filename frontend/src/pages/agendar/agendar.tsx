@@ -1,11 +1,8 @@
-import React from 'react';
- 
+import React from "react";
 
 const Local: React.FC = () => {
   return (
-    <>
     <div></div>
-    </>
   );
 };
 
