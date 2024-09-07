@@ -7,6 +7,7 @@ import Profile from "./pages/profile/Profile";
 // import Agendamentos from "./pages/agendamentos/Agendamentos";
 import LoginPage from "./pages/login/Login";
 import SignInPage from "./pages/login/SignIn";
+import Agendamentos from "./pages/agendamento/Agendamentos";
 import GlobalStyle from "./Reset";
 import Layout from "./components/layout/Layout";
 import { NavbarProvider } from "./contexts/NavbarContext"; // Importe o NavbarProvider
@@ -26,6 +27,7 @@ const App: React.FC = () => {
             </Route>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signin" element={<SignInPage />} />
+            <Route path="/agendamentos" element={<Agendamentos />} />
             {/* Adicione outras rotas conforme necessário */}
           </Routes>
         </NavbarProvider>
