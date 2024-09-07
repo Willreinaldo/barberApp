@@ -7,7 +7,6 @@ interface NavbarContextProps {
 }
 
 const NavbarContext = createContext<NavbarContextProps | undefined>(undefined);
-export default NavbarContext;
 
 export const NavbarProvider: React.FC<{ children: ReactNode }> = ({
   children,
