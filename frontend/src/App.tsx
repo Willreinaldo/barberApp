@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Home from "./pages/home/Home";
 import Local from "./pages/Local/Local";
 import Profile from "./pages/profile/Profile";
+// import Agendamentos from "./pages/agendamentos/Agendamentos";
 import LoginPage from "./pages/login/Login";
 import SignInPage from "./pages/login/SignIn";
 import GlobalStyle from "./Reset";
