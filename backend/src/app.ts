@@ -8,13 +8,14 @@ dotenv.config();
 
 const app = express();
 
-// app.use(json());
-// app.use(cors());
-
-app
-  .use(cors())
+ 
+app.use(cors({
+  origin: 'http://localhost:3000', 
+  credentials: true,  
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],  
+  allowedHeaders: ['Content-Type', 'Authorization'] 
+ }))
   .use(json())
-  .get("/health", (_req, res) => res.send("Hello world"))
   .use("/users", userRoutes)
   .use(handleApplicationErrors);
 

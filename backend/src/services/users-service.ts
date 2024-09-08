@@ -1,5 +1,5 @@
 import { duplicatedEmailError, invalidCredentialsError } from "../errors";
-import { SignInParams, SignUpParams } from "../protocols/protocols";
+import { SignInParams, SignUpParams, updateUserParams  } from "../protocols/protocols";
 import sessionRepository from "../repositories/sessions";
 import userRepository from "../repositories/users";
 import { exclude } from "../utils/prisma-utils";
@@ -59,9 +59,23 @@ async function validateUniqueEmail(email: string) {
   if (findEmail) throw duplicatedEmailError();
 }
 
+async function updateUser(id: number, params: updateUserParams) {
+  const { name, email, phone, password, avatarUrl } = params;
+
+  const updatedData: any = { name, email, phone, avatarUrl };
+
+  if (password) {
+    updatedData.password = await bcrypt.hash(password, 12);
+  }
+
+  const updatedUser = await userRepository.update(id, updatedData);
+
+  return exclude(updatedUser, "password");
+}
 export const userService = {
   signIn,
   createUser,
+  updateUser
 };
 
 export default userService;

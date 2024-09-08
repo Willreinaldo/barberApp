@@ -11,3 +11,14 @@ export const signInSchema = joi.object({
   email: joi.string().email().required(),
   password: joi.string().required(),
 });
+
+export const userUpdateSchema = joi.object({
+  id: joi.number().optional(),
+  createdAt: joi.date().optional(),
+  updatedAt: joi.date().optional(),
+  name: joi.string().optional(),
+  email: joi.string().email().optional(),
+  phone: joi.string().optional(),
+  password: joi.string().optional(),
+  avatarUrl: joi.string().optional(),
+});

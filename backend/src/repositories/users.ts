@@ -14,9 +14,17 @@ async function create(data: Prisma.UserUncheckedCreateInput) {
     data,
   });
 }
+// Nova função para atualizar o usuário
+async function update(id: number, data: Prisma.UserUpdateInput) {
+  return prisma.user.update({
+    where: { id },
+    data,
+  });
+}
 const userRepository = {
   findByEmail,
   create,
+  update
 };
 
 export default userRepository;

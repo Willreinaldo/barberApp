@@ -9,7 +9,7 @@ import LoginPage from "./pages/login/Login";
 import SignInPage from "./pages/login/SignIn";
 import GlobalStyle from "./Reset";
 import Layout from "./components/layout/Layout";
-import { NavbarProvider } from "./contexts/NavbarContext"; // Importe o NavbarProvider
+import { NavbarProvider } from "./contexts/NavbarContext";  
 import { AuthProvider } from "./contexts/AuthContext";
 
 const App: React.FC = () => {

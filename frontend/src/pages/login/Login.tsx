@@ -13,8 +13,11 @@ import {
 } from "./Login.Styles";
 import { useNavigate } from "react-router-dom";
 import { signIn } from "../../services/signIn";
+import { useAuthContext } from "../../contexts/AuthContext";  
 
-const LoginPage: React.FC = () => {
+ const LoginPage: React.FC = () => {
+
+  const { setAuthData } = useAuthContext(); 
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -28,8 +31,10 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
     try {
       const userData = await signIn(form);
-      // setUserData(userData);
-      console.log(userData);
+      if (userData) {
+         setAuthData({ user: userData.user, token: userData.token });
+        navigate("/");  
+      }     
       navigate("/");
     } catch (err) {
       console.log(err);
