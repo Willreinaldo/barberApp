@@ -10,14 +10,11 @@ import {
   NavLink,
   AvatarImage
 } from './Navbar.styles';
-import AvatarEdit from '../avatar/AvatarEdit';
-import { useNavigate } from "react-router-dom";
- 
+  
 
 const Navbar: React.FC = () => {
   const { avatarUrl } = useNavbarContext();
-  const navigate = useNavigate();
-
+ 
   return (
     <NavbarContainer>
       <LogoContainer>

@@ -6,14 +6,24 @@ import AvatarEdit from '../../components/avatar/AvatarEdit';
 import { useAuthContext, User } from '../../contexts/AuthContext';
 
 const Profile: React.FC = () => {
+  
   const { authData, setAuthData } = useAuthContext();
   const user = authData?.user;
 
+
+  interface UpdateUserData {
+    name?: string;
+    email?: string;
+    phone?: string;
+    password?: string;
+    avatarUrl?: string;
+  }
+  
   const initialValues = {
     name: user?.name || '',
     email: user?.email || '',
     phone: user?.phone || '',
-    password: '********',
+    password: '',
     id: user?.id ?? 0,
     createdAt: user?.createdAt || new Date(),
     updatedAt: user?.updatedAt || new Date(),
@@ -48,6 +58,13 @@ const Profile: React.FC = () => {
     setIsEditing(false);
     setValues(tempValues);
 
+  const updatedData: UpdateUserData  = { ...tempValues, avatarUrl };
+
+  // Remove o campo de senha se não houver alteração
+  if (values.password === tempValues.password) {
+    delete updatedData.password;
+  }
+
     try {
  
        const response = await fetch(`http://localhost:5000/users/user/${user?.id}`, {
@@ -55,12 +72,8 @@ const Profile: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
          },
-        body: JSON.stringify({
-          ...tempValues,
-          avatarUrl,
-        }),
+        body: JSON.stringify({updatedData}),
       }); 
-      console.log(response);
       if (response.ok) {
         const updatedUser: User = await response.json();
         setAuthData({ user: updatedUser, token: authData?.token || '' });
@@ -127,7 +140,7 @@ const Profile: React.FC = () => {
         <Input
           type="password"
           name="password"
-          value={isEditing ? tempValues.password : values.password}
+          value={isEditing ? tempValues.password : ''}
           readOnly={!isEditing}
           onChange={handleChange}
           placeholder="Senha"

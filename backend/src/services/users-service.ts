@@ -1,7 +1,7 @@
 import { duplicatedEmailError, invalidCredentialsError } from "../errors";
 import { SignInParams, SignUpParams, updateUserParams  } from "../protocols/protocols";
 import sessionRepository from "../repositories/sessions";
-import userRepository from "../repositories/users";
+import userRepository,{getUserRepository} from "../repositories/users";
 import { exclude } from "../utils/prisma-utils";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -72,10 +72,23 @@ async function updateUser(id: number, params: updateUserParams) {
 
   return exclude(updatedUser, "password");
 }
+
+export const getUserService = async (id: number) => {
+  try {
+     const user = await getUserRepository(id);
+
+     return user;
+  } catch (error) {
+    console.error('Erro ao buscar usuário no serviço:', error);
+    throw new Error('Erro ao buscar usuário no serviço');
+  }
+};
+
 export const userService = {
   signIn,
   createUser,
-  updateUser
+  updateUser,
+  getUserService
 };
 
 export default userService;

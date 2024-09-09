@@ -22,3 +22,7 @@ export const userUpdateSchema = joi.object({
   password: joi.string().optional(),
   avatarUrl: joi.string().optional(),
 });
+
+export const getUserSchema = joi.object({
+  id: joi.number().optional()
+  });

@@ -21,10 +21,31 @@ async function update(id: number, data: Prisma.UserUpdateInput) {
     data,
   });
 }
+export const getUserRepository = async (id: number) => {
+  try {
+     const user = await prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        avatarUrl: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.error('Erro ao buscar usuário no banco de dados:', error);
+    throw new Error('Erro ao buscar usuário no repositório');
+  }
+};
 const userRepository = {
   findByEmail,
   create,
-  update
+  update, 
+  getUserRepository,
 };
 
 export default userRepository;
