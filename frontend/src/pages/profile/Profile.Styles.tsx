@@ -5,7 +5,7 @@ export const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 2.45em;
   background-color: #f5f5f5;
 `;
 

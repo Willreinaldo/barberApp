@@ -10,11 +10,11 @@ import {
   NavLink,
   AvatarImage
 } from './Navbar.styles';
-import AvatarEdit from '../avatar/AvatarEdit';
+  
 
 const Navbar: React.FC = () => {
   const { avatarUrl } = useNavbarContext();
-
+ 
   return (
     <NavbarContainer>
       <LogoContainer>

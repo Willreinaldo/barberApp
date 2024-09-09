@@ -2,14 +2,14 @@
 import React from "react";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
-import { Outlet } from "react-router-dom"; // Para renderizar o conteúdo filho das rotas
+import { Outlet } from "react-router-dom";  
 
 const Layout: React.FC = () => {
   return (
     <>
       <Navbar />
       <main>
-        <Outlet /> {/* Renderiza o conteúdo da rota atual */}
+        <Outlet /> 
       </main>
       <Footer />
     </>

@@ -17,6 +17,7 @@ const PhotoUploadContainer = styled.div`
 
 interface AvatarEditProps {
   onAvatarChange: (url: string) => void;
+  currentAvatarUrl: string;
 }
 
 const AvatarEdit: React.FC<AvatarEditProps> = ({ onAvatarChange }) => {

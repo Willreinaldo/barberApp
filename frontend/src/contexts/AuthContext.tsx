@@ -1,11 +1,12 @@
 import React, { createContext, useContext, ReactNode, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
-interface User {
+export interface User {
     id: number;
     email: string;
     name: string;
     phone: string;
     createdAt: Date;
+    avatarUrl: string;
     updatedAt: Date;
 }
 

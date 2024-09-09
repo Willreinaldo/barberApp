@@ -10,7 +10,7 @@ import SignInPage from "./pages/login/SignIn";
 import Agendamentos from "./pages/agendamento/Agendamentos";
 import GlobalStyle from "./Reset";
 import Layout from "./components/layout/Layout";
-import { NavbarProvider } from "./contexts/NavbarContext"; // Importe o NavbarProvider
+import { NavbarProvider } from "./contexts/NavbarContext";  
 import { AuthProvider } from "./contexts/AuthContext";
 
 const App: React.FC = () => {

@@ -1,7 +1,7 @@
 import { duplicatedEmailError, invalidCredentialsError } from "../errors";
-import { SignInParams, SignUpParams } from "../protocols/protocols";
+import { SignInParams, SignUpParams, updateUserParams  } from "../protocols/protocols";
 import sessionRepository from "../repositories/sessions";
-import userRepository from "../repositories/users";
+import userRepository,{getUserRepository} from "../repositories/users";
 import { exclude } from "../utils/prisma-utils";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -59,9 +59,36 @@ async function validateUniqueEmail(email: string) {
   if (findEmail) throw duplicatedEmailError();
 }
 
+async function updateUser(id: number, params: updateUserParams) {
+  const { name, email, phone, password, avatarUrl } = params;
+
+  const updatedData: any = { name, email, phone, avatarUrl };
+
+  if (password) {
+    updatedData.password = await bcrypt.hash(password, 12);
+  }
+
+  const updatedUser = await userRepository.update(id, updatedData);
+
+  return exclude(updatedUser, "password");
+}
+
+export const getUserService = async (id: number) => {
+  try {
+     const user = await getUserRepository(id);
+
+     return user;
+  } catch (error) {
+    console.error('Erro ao buscar usuário no serviço:', error);
+    throw new Error('Erro ao buscar usuário no serviço');
+  }
+};
+
 export const userService = {
   signIn,
   createUser,
+  updateUser,
+  getUserService
 };
 
 export default userService;
