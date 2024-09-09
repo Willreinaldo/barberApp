@@ -16,6 +16,7 @@ export const userUpdateSchema = joi.object({
   id: joi.number().optional(),
   createdAt: joi.date().optional(),
   updatedAt: joi.date().optional(),
+  updatedData: joi.object().optional(),
   name: joi.string().optional(),
   email: joi.string().email().optional(),
   phone: joi.string().optional(),

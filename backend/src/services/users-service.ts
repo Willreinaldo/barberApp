@@ -39,8 +39,7 @@ async function getUser(email: string) {
 }
 
 async function createUser(params: SignUpParams) {
-  console.log(params)
-  const { name, email, password, phone } = params;
+   const { name, email, password, phone } = params;
 
   await validateUniqueEmail(email);
 
@@ -60,19 +59,26 @@ async function validateUniqueEmail(email: string) {
 }
 
 async function updateUser(id: number, params: updateUserParams) {
-  const { name, email, phone, password, avatarUrl } = params;
+  try {
+    const updatedData = (params as any).updatedData || params;
 
-  const updatedData: any = { name, email, phone, avatarUrl };
+     const { name, email, phone, password, avatarUrl } = updatedData;
+    console.log("Dados para atualização:", updatedData);
 
-  if (password) {
-    updatedData.password = await bcrypt.hash(password, 12);
+    const dataToUpdate: any = { name, email, phone, avatarUrl };
+
+    if (password) {
+      dataToUpdate.password = await bcrypt.hash(password, 12);
+    }
+
+     const updatedUser = await userRepository.update(id, dataToUpdate);
+
+    return exclude(updatedUser, "password");
+  } catch (error) {
+    console.error("Erro ao atualizar usuário:", error);
+    throw new Error("Erro ao atualizar usuário.");
   }
-
-  const updatedUser = await userRepository.update(id, updatedData);
-
-  return exclude(updatedUser, "password");
 }
-
 export const getUserService = async (id: number) => {
   try {
      const user = await getUserRepository(id);

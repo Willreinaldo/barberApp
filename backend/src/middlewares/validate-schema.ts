@@ -3,22 +3,24 @@ import { NextFunction, Response, Request } from "express";
 import httpStatus from "http-status";
 import { ObjectSchema } from "joi";
 
+
 export function validateSchema(schema: ObjectSchema): Validation {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       console.log("Iniciando validação do schema...");
 
-       const { error } = schema.validate(req.body, { abortEarly: false });
+      const { error, value } = schema.validate(req.body, { abortEarly: false });
 
-       if (!error) {
-        console.log("Validação do schema bem-sucedida.");
-        next();
-      } else {
+      if (error) {
         console.log("Erro de validação detectado:", error.details);
-        res
+        return res
           .status(httpStatus.BAD_REQUEST)
           .send(invalidDataError(error.details.map((d) => d.message)));
       }
+
+       console.log("Validação bem-sucedida, dados validados:");
+      next();
+
     } catch (err) {
       console.error("Erro inesperado durante a validação do schema:", err);
       res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
@@ -27,6 +29,5 @@ export function validateSchema(schema: ObjectSchema): Validation {
     }
   };
 }
-
 
 type Validation = (req: Request, res: Response, next: NextFunction) => void;

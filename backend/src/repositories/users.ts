@@ -14,13 +14,21 @@ async function create(data: Prisma.UserUncheckedCreateInput) {
     data,
   });
 }
-// Nova função para atualizar o usuário
+ 
 async function update(id: number, data: Prisma.UserUpdateInput) {
-  return prisma.user.update({
-    where: { id },
-    data,
-  });
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { id },
+      data,
+    });
+    console.log(`Usuário com ID ${id} atualizado com sucesso.`);
+    return updatedUser;
+  } catch (error) {
+    console.error(`Erro ao atualizar usuário com ID ${id}:`, error);
+    throw new Error("Não foi possível atualizar o usuário. Tente novamente mais tarde.");
+  }
 }
+
 export const getUserRepository = async (id: number) => {
   try {
      const user = await prisma.user.findUnique({

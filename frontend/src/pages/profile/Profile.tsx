@@ -67,8 +67,8 @@ const Profile: React.FC = () => {
   }
 
     try {
- 
-       const response = await fetch(`${apiUrl}/users/user/${user?.id}`, {
+       console.log("updatedData: ",updatedData);
+        const response = await fetch(`${apiUrl}/users/user/${user?.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -76,6 +76,7 @@ const Profile: React.FC = () => {
         body: JSON.stringify({updatedData}),
       }); 
       if (response.ok) {
+        console.log(response.ok);
         const updatedUser: User = await response.json();
         setAuthData({ user: updatedUser, token: authData?.token || '' });
       } else {
