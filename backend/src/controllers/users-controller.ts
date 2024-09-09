@@ -47,8 +47,7 @@ export const updateUser = async (req: Request, res: Response) => {
 export const getUser = async (req: Request, res: Response) => {
   const userId = Number(req.params.id);
 
-  console.log("aquiiii!!",userId);
-  try {
+   try {
     // Busca o usuário usando o serviço
     const user = await getUserService(userId);
     

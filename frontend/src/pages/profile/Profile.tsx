@@ -7,6 +7,8 @@ import { useAuthContext, User } from '../../contexts/AuthContext';
 
 const Profile: React.FC = () => {
   
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const { authData, setAuthData } = useAuthContext();
   const user = authData?.user;
 
@@ -67,7 +69,7 @@ const Profile: React.FC = () => {
 
     try {
  
-       const response = await fetch(`http://localhost:5000/users/user/${user?.id}`, {
+       const response = await fetch(`${apiUrl}/users/user/${user?.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

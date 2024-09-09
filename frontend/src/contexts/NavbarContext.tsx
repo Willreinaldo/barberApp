@@ -9,7 +9,9 @@ interface NavbarContextProps {
 const NavbarContext = createContext<NavbarContextProps | undefined>(undefined);
 
 export const NavbarProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  
+ 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const { authData, setAuthData } = useAuthContext();
   const user = authData?.user;
 
@@ -19,7 +21,7 @@ export const NavbarProvider: React.FC<{ children: ReactNode }> = ({ children }) 
  
     const fetchUserAvatar = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/users/user/${user?.id}`, {  
+        const response = await fetch(`${apiUrl}/users/user/${user?.id}`, {  
           method: "GET",
           headers: {
             "Content-Type": "application/json",
