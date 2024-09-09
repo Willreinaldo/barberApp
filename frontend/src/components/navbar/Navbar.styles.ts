@@ -5,8 +5,16 @@ export const NavbarContainer = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 100%;
   padding: 10px 20px;
   background-color: #0051B1;
+
+  @media (max-width: 768px) {
+    flex-direction: column; /* Empilha em telas pequenas */
+}
+  @media (max-width: 650x) {
+    flex-direction: column; /* Empilha em telas pequenas */
+}
 `;
 
 export const LogoContainer = styled.div`

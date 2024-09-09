@@ -12,8 +12,7 @@ const customIcon = new L.Icon({
 });
 
 const Map: React.FC = () => {
-  // Localização da barbearia (latitude e longitude)
-  const barberShopLocation = {
+   const barberShopLocation = {
     lat: -6.888062636727218,  
     lng: -38.552855792181795   
   };
@@ -31,8 +30,10 @@ const Map: React.FC = () => {
       />
       <Marker position={barberShopLocation} icon={customIcon}>
         <Popup>
-          <strong>Barbearia Local</strong><br />
-          Endereço da barbearia ou informações adicionais
+          <strong>Barbearia BarberShop</strong><br/>
+          Localizada no Shopping Center da cidade - 
+           Av. Cmte. Vital Rolim, 989 - Jardim Adalgiza II, Cajazeiras - PB, 58900-000
+
         </Popup>
       </Marker>
       <ZoomControl position="bottomright" /> 
