@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from 'react';
+ 
 
-const Local: React.FC = () => {
+const Agendar: React.FC = () => {
+  
+
   return (
-    <div></div>
+    <>
+       <div><h1>Agendar</h1></div>
+    </>
   );
 };
 
-export default Local;
+export default Agendar;
