@@ -10,6 +10,7 @@ import SignInPage from "./pages/login/SignIn";
 import Agendamentos from "./pages/agendamento/Agendamentos";
 import GlobalStyle from "./Reset";
 import Layout from "./components/layout/Layout";
+import Agendar from "./pages/agendar/agendar";
 import { NavbarProvider } from "./contexts/NavbarContext";  
 import { AuthProvider } from "./contexts/AuthContext";
 
@@ -25,6 +26,7 @@ const App: React.FC = () => {
               <Route path="/local" element={<Local />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/agendamentos" element={<Agendamentos />} />
+              <Route path="/agendar" element={<Agendar/>} />
             </Route>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signin" element={<SignInPage />} />
