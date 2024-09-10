@@ -55,8 +55,7 @@ const Agendamentos: React.FC = () => {
 
   return (
     <>
-      <Navbar />
-      <PageContainer>
+       <PageContainer>
         <AgendamentosContainer>
           <h1>Agendamentos</h1>
           <Table>

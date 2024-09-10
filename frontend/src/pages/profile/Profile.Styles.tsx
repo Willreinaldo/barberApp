@@ -7,6 +7,8 @@ export const ProfileContainer = styled.div`
   align-items: center;
   padding: 2.45em;
   background-color: #f5f5f5;
+  min-height: 100vh; /* Garante que ocupe toda a altura da tela */
+  box-sizing: border-box; /* Inclui padding na altura total */
 `;
 
 export const PhotoUpload = styled.div`

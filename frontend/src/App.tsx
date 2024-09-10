@@ -24,11 +24,11 @@ const App: React.FC = () => {
               <Route path="/" element={<Home />} />
               <Route path="/local" element={<Local />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/agendamentos" element={<Agendamentos />} />
             </Route>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signin" element={<SignInPage />} />
-            <Route path="/agendamentos" element={<Agendamentos />} />
-            {/* Adicione outras rotas conforme necessário */}
+             {/* Adicione outras rotas conforme necessário */}
           </Routes>
         </NavbarProvider>
       </AuthProvider>

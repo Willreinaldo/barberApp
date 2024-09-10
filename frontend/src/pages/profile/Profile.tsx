@@ -1,6 +1,5 @@
 // src/pages/profile/Profile.tsx
 import React, { useEffect, useState } from 'react';
-import Footer from '../../components/footer/Footer';
 import { ProfileContainer, Input, Button } from './Profile.Styles';
 import AvatarEdit from '../../components/avatar/AvatarEdit';
 import { useAuthContext, User } from '../../contexts/AuthContext';
@@ -68,8 +67,8 @@ const Profile: React.FC = () => {
   }
 
     try {
- 
-       const response = await fetch(`${apiUrl}/users/user/${user?.id}`, {
+       console.log("updatedData: ",updatedData);
+        const response = await fetch(`${apiUrl}/users/user/${user?.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -77,6 +76,7 @@ const Profile: React.FC = () => {
         body: JSON.stringify({updatedData}),
       }); 
       if (response.ok) {
+        console.log(response.ok);
         const updatedUser: User = await response.json();
         setAuthData({ user: updatedUser, token: authData?.token || '' });
       } else {
@@ -156,8 +156,7 @@ const Profile: React.FC = () => {
           </>
         )}
       </ProfileContainer>
-      <Footer />
-    </>
+     </>
   );
 };
 
