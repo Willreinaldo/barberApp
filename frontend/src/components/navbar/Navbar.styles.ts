@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const NavbarContainer = styled.nav`
   display: flex;
@@ -12,7 +12,7 @@ export const NavbarContainer = styled.nav`
     flex-direction: column;  
   }
 
-  @media (max-width: 650px) 
+  @media (max-width: 650px) {
     flex-direction: column;
   }
 `;
