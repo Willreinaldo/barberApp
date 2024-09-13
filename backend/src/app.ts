@@ -2,6 +2,8 @@ import express, { json } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { userRoutes } from "./routers/users-router";
+import { appointmentRouter } from  "./routers/appointment-router";
+
 import { handleApplicationErrors } from "./middlewares/erros-middleware";
 
 dotenv.config();
@@ -17,6 +19,7 @@ app.use(cors({
  }))
   .use(json())
   .use("/users", userRoutes)
+  .use("/users", appointmentRouter)
   .use(handleApplicationErrors);
 
 const PORT = process.env.PORT || 5002;
