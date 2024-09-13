@@ -4,13 +4,12 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Home from "./pages/home/Home";
 import Local from "./pages/Local/Local";
 import Profile from "./pages/profile/Profile";
-// import Agendamentos from "./pages/agendamentos/Agendamentos";
-import LoginPage from "./pages/login/Login";
+ import LoginPage from "./pages/login/Login";
 import SignInPage from "./pages/login/SignIn";
 import Agendamentos from "./pages/agendamento/Agendamentos";
 import GlobalStyle from "./Reset";
 import Layout from "./components/layout/Layout";
-import Agendar from "./pages/agendar/Agendar";
+import AgendarCortePage from "./pages/agendar/AgendarCortePage";
 import { NavbarProvider } from "./contexts/NavbarContext";  
 import { AuthProvider } from "./contexts/AuthContext";
 
@@ -26,11 +25,10 @@ const App: React.FC = () => {
               <Route path="/local" element={<Local />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/agendamentos" element={<Agendamentos />} />
-              <Route path="/agendar" element={<Agendar/>} />
+              <Route path="/agendar" element={<AgendarCortePage/>} />
             </Route>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signin" element={<SignInPage />} />
-             {/* Adicione outras rotas conforme necessário */}
           </Routes>
         </NavbarProvider>
       </AuthProvider>

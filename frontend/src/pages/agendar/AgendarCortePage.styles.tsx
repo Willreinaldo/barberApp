@@ -42,16 +42,22 @@ export const ContentContainer = styled.div`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
 
-export const Button = styled.button`
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
   margin-top: 20px;
+  gap: 10px;
+`;
+
+export const StyledButton = styled.button`
   padding: 10px 20px;
-  background-color: #0051b1;
-  color: #fff;
   border: none;
   border-radius: 4px;
+  background-color: #0051b1;
+  color: #fff;
   cursor: pointer;
-
+  
   &:hover {
-    background-color: #003d8a;
+    background-color: #0041a1;
   }
 `;
