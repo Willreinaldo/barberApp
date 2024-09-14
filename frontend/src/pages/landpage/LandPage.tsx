@@ -1,7 +1,27 @@
 import React from "react";
-import styled from "styled-components";
 import { CgProfile } from "react-icons/cg";
 import screen from "./screen_mural.jpeg";
+import logo from "../../assets/logo.png";
+import { FaInstagram, FaFacebook, FaLinkedin } from "react-icons/fa";
+import {
+  CascadeWrapper,
+  Image,
+  ScheduleButton,
+  LogoCenter,
+  Container,
+  Header,
+  PageTitle,
+  ProfileIcon,
+  ImageContainer,
+  ImageLogo,
+  Main,
+  Footer,
+  Box,
+  Box2,
+  DaySchedule,
+  Content,
+} from "./Land.styles";
+import beard from "../../assets/beard.png";
 
 const Landpage: React.FC = () => {
   return (
@@ -13,71 +33,71 @@ const Landpage: React.FC = () => {
         </ProfileIcon>
       </Header>
       <ImageContainer>
-        <Image src={screen} alt="imagem da landpage" />
+        <ImageLogo src={screen} alt="imagem da landpage" />
       </ImageContainer>
-    
-    <Main></Main>
 
+      <Main>
+        <h2>Faça o seu agendamento</h2>
+        <Content>
+          <CascadeWrapper>
+            <Image src={beard} alt="Imagem 1" offsetX={0} offsetY={0} />
+            <Image src={beard} alt="Imagem 2" offsetX={20} offsetY={20} />
+            <Image src={beard} alt="Imagem 3" offsetX={40} offsetY={40} />
+          </CascadeWrapper>
+          <LogoCenter>
+            <img src={logo} alt="logo do sistema" />
+          </LogoCenter>
+          <ScheduleButton>Quero Agendar!</ScheduleButton>
+        </Content>
+        <Box>
+          <h2>Horários de Atendimento</h2>
+          <DaySchedule>
+            <p>
+              Dom:
+              <br /> <span>07:00 - 11:00</span>
+            </p>
+            <p>
+              Seg:
+              <br /> <span>07:00 - 11:00</span>
+            </p>
+            <p>
+              Ter:
+              <br /> <span>07:00 - 11:00</span>
+            </p>
+            <p>
+              Qua:
+              <br /> <span>07:00 - 11:00</span>
+            </p>
+            <p>
+              Qui:
+              <br /> <span>07:00 - 11:00</span>
+            </p>
+            <p>
+              Sex:
+              <br /> <span>07:00 - 11:00</span>
+            </p>
+            <p>
+              Sab:
+              <br /> <span>07:00 - 11:00</span>
+            </p>
+          </DaySchedule>
+        </Box>
+        <Box2>
+          <h2>Nossas redes sociais:</h2>
+          <div>
+            <FaInstagram size={32} />
+            <FaFacebook size={32} />
+            <FaLinkedin size={32} />
+          </div>
+          <h2>Telefone:</h2>
+          <span>(83) 99999-0000</span>
+        </Box2>
+      </Main>
+      <Footer>
+        <img src={logo} alt="logo do sistema" />
+      </Footer>
     </Container>
   );
 };
-
-const Container = styled.div`
-  position: relative;
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* justify-content: center; */
-  background-color: #ffffff;
-`;
-
-const Header = styled.header`
-  width: 100%;
-  display: flex;
-  height: 180px;
-  gap: 300px;
-  justify-content: center;
-  /* align-items: center; */
-  padding: 20px;
-  background-color: #0051b1;
-  color: white;
-`;
-
-const PageTitle = styled.h1`
-  font-size: 40px;
-  font-weight: bold;
-`;
-
-const ProfileIcon = styled.div`
-  font-size: 32px;
-  cursor: pointer;
-`;
-
-const ImageContainer = styled.div`
-  position: absolute;
-  top: 80px; /* Ajuste conforme necessário */
-  width: 80%;
-  max-width: 700px;
-  height: 280px;
-  background-color: #ddd;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-
-const Main = styled.div`
-    width: 100vw;
-    height: 300px;
-    margin-top: 200px;
-    background-color: #2c2c2c;
-`
 
 export default Landpage;
