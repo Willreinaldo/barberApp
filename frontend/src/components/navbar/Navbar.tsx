@@ -1,6 +1,6 @@
 // src/components/navbar/Navbar.tsx
-import React from 'react';
-import { useNavbarContext } from '../../contexts/NavbarContext';
+import React from "react";
+import { useNavbarContext } from "../../contexts/NavbarContext";
 import {
   NavbarContainer,
   LogoContainer,
@@ -8,23 +8,29 @@ import {
   LogoImage,
   NavLinks,
   NavLink,
-  AvatarImage
-} from './Navbar.styles';
-  
+  AvatarImage,
+} from "./Navbar.styles";
 
 const Navbar: React.FC = () => {
   const { avatarUrl } = useNavbarContext();
- 
+
   return (
     <NavbarContainer>
       <LogoContainer>
-        <NavLink href="/"><LogoText>BARBER SHOP</LogoText></NavLink>
+        <NavLink href="/">
+          <LogoText>BARBER SHOP</LogoText>
+        </NavLink>
         <LogoImage src="/logo.png" alt="Logo" />
       </LogoContainer>
       <NavLinks>
         <NavLink href="/agendamentos">Agendamentos</NavLink>
         <NavLink href="/local">Localização</NavLink>
-        <NavLink href="/sair">Sair</NavLink>
+        <NavLink
+          href="/login"
+          onClick={() => localStorage.removeItem("authData")}
+        >
+          Sair
+        </NavLink>
         <NavLink href="/profile">Perfil</NavLink>
         <AvatarImage src={avatarUrl} alt="Avatar" />
       </NavLinks>

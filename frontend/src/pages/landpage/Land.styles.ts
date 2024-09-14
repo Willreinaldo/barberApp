@@ -22,10 +22,10 @@ export const CascadeWrapper = styled.div`
   height: 120px;
 `;
 
-export const Image = styled.img<{ offsetX: number; offsetY: number }>`
+export const Image = styled.img<{ offsetx: number; offsety: number }>`
   position: absolute;
-  top: ${(props) => props.offsetY}px;
-  left: ${(props) => props.offsetX}px;
+  top: ${(props) => props.offsety}px;
+  left: ${(props) => props.offsetx}px;
   width: 100%;
   height: 100%;
   object-fit: cover;

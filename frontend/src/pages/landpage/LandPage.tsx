@@ -22,13 +22,18 @@ import {
   Content,
 } from "./Land.styles";
 import beard from "../../assets/beard.png";
-
+import { useNavigate } from "react-router-dom";
 const Landpage: React.FC = () => {
+  const userData: any = localStorage.getItem("authData");
+  const data = JSON.parse(userData);
+  const navigate = useNavigate();
   return (
     <Container>
       <Header>
         <PageTitle>BARBER SHOP</PageTitle>
-        <ProfileIcon>
+        <ProfileIcon
+          onClick={() => (data ? navigate("/home") : navigate("/login"))}
+        >
           <CgProfile size={40} />
         </ProfileIcon>
       </Header>
@@ -40,14 +45,18 @@ const Landpage: React.FC = () => {
         <h2>Faça o seu agendamento</h2>
         <Content>
           <CascadeWrapper>
-            <Image src={beard} alt="Imagem 1" offsetX={0} offsetY={0} />
-            <Image src={beard} alt="Imagem 2" offsetX={20} offsetY={20} />
-            <Image src={beard} alt="Imagem 3" offsetX={40} offsetY={40} />
+            <Image src={beard} alt="Imagem 1" offsetx={0} offsety={0} />
+            <Image src={beard} alt="Imagem 2" offsetx={20} offsety={20} />
+            <Image src={beard} alt="Imagem 3" offsetx={40} offsety={40} />
           </CascadeWrapper>
           <LogoCenter>
             <img src={logo} alt="logo do sistema" />
           </LogoCenter>
-          <ScheduleButton>Quero Agendar!</ScheduleButton>
+          <ScheduleButton
+            onClick={() => (data ? navigate("/home") : navigate("/login"))}
+          >
+            Quero Agendar!
+          </ScheduleButton>
         </Content>
         <Box>
           <h2>Horários de Atendimento</h2>
