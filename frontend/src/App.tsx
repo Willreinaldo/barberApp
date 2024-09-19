@@ -32,7 +32,6 @@ const App: React.FC = () => {
                 </VerifyCredentialToken>
               }
             >
-              <Route path="/home" element={<Home />} />
               <Route path="/local" element={<Local />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/agendamentos" element={<Agendamentos />} />   
