@@ -31,11 +31,12 @@ import { useAuthContext } from "../../contexts/AuthContext";
     e.preventDefault();
     try {
       const userData = await signIn(form);
+      console.log(userData)
       if (userData) {
          setAuthData({ user: userData.user, token: userData.token });
-        navigate("/");  
+        navigate("/home");  
       }     
-      navigate("/");
+      navigate("/home");
     } catch (err) {
       console.log(err);
     }
