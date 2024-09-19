@@ -12,7 +12,7 @@ import Layout from "./components/layout/Layout";
 import AgendarCortePage from "./pages/agendar/AgendarCortePage";
 import { NavbarProvider } from "./contexts/NavbarContext";  
 import { AuthProvider } from "./contexts/AuthContext";
-
+ 
 const App: React.FC = () => {
   return (
     <Router>

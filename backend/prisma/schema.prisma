@@ -26,20 +26,17 @@ model User {
   appointments Appointment[]  // Relaciona o User com seus agendamentos
 }
 
-
 model Barber {
   id         Int          @id @default(autoincrement())
   name       String       @db.VarChar(255)
-  photo      String?
-  appointments Appointment[]
+  appointments Appointment[] // Adicionado para refletir a relação oposta
 }
 
 model Service {
   id         Int          @id @default(autoincrement())
   name       String       @db.VarChar(255)
-  duration   Int          // Em minutos (ex: 30, 60, 90)
   price      Decimal       @db.Decimal(10, 2) // Garantir duas casas decimais para preço
-  appointments AppointmentService[]
+  appointments AppointmentService[] // Adicionado para refletir a relação oposta
 }
 
 model Appointment {

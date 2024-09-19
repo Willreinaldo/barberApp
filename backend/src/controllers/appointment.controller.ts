@@ -15,6 +15,7 @@ export const createAppointment = async (req: Request, res: Response) => {
     const newAppointment = await appointmentService.createAppointment(req.body);
     res.status(201).json(newAppointment);
   } catch (error) {
+    console.log(error),
     res.status(500).json({ error: "Erro ao criar agendamento" });
   }
 };

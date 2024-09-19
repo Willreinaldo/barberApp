@@ -5,10 +5,6 @@ export const createAppointmentSchema = joi.object({
   date: joi.date().required().messages({
     'date.base': 'A data é obrigatória e deve estar no formato correto.',
   }),
-  time: joi.string().required().messages({
-    'string.base': 'O horário é obrigatório e deve ser uma string válida.',
-    'string.empty': 'O horário não pode ser vazio.',
-  }),
   userId: joi.number().required().messages({
     'number.base': 'O ID do usuário é obrigatório.',
   }),
@@ -28,9 +24,6 @@ export const createAppointmentSchema = joi.object({
 export const updateAppointmentSchema = joi.object({
     date: joi.date().optional().messages({
       'date.base': 'A data deve estar no formato correto.',
-    }),
-    time: joi.string().optional().messages({
-      'string.base': 'O horário deve ser uma string válida.',
     }),
     barberId: joi.number().optional().messages({
       'number.base': 'O ID do barbeiro deve ser válido.',

@@ -16,16 +16,17 @@ export const getAllAppointments = async () => {
 };
 
 export const createAppointment = async (data: any) => {
+  console.log("no repositório de criar agendamento: ", data);
   return await prisma.appointment.create({
     data: {
       date: data.date,
-      time: data.time,
       userId: data.userId,
       barberId: data.barberId,
       comments: data.comments,
       services: {
-        create: data.services.map((serviceId: number) => ({
+        create: data.serviceIds.map((serviceId: number) => ({
           serviceId,
+
         })),
       },
     },
@@ -36,12 +37,11 @@ export const updateAppointment = async (id: number, data: any) => {
   return await prisma.appointment.update({
     where: { id },
     data: {
-      date: data.date,
-      time: data.time,
+      date: new Date(data.date),
       barberId: data.barberId,
       comments: data.comments,
       services: {
-        deleteMany: {}, // Remove serviços anteriores
+        deleteMany: {}, 
         create: data.services.map((serviceId: number) => ({
           serviceId,
         })),
