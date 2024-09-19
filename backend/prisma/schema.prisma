@@ -14,15 +14,50 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique @db.VarChar(255)
-  name      String   @db.VarChar(255)
-  password  String   @db.VarChar(255)
-  avatarUrl String?   
-  phone     String   @unique @db.VarChar(255)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Session Session[]
+  id        Int          @id @default(autoincrement())
+  email     String       @unique @db.VarChar(255)
+  name      String       @db.VarChar(255)
+  password  String       @db.VarChar(255)
+  avatarUrl String?
+  phone     String       @unique @db.VarChar(15) // Limitar para 15 caracteres
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  sessions  Session[]
+  appointments Appointment[]  // Relaciona o User com seus agendamentos
+}
+
+model Barber {
+  id         Int          @id @default(autoincrement())
+  name       String       @db.VarChar(255)
+  appointments Appointment[] // Adicionado para refletir a relação oposta
+}
+
+model Service {
+  id         Int          @id @default(autoincrement())
+  name       String       @db.VarChar(255)
+  price      Decimal       @db.Decimal(10, 2) // Garantir duas casas decimais para preço
+  appointments AppointmentService[] // Adicionado para refletir a relação oposta
+}
+
+model Appointment {
+  id            Int          @id @default(autoincrement())
+  date          DateTime     // Remover o campo `time` para usar DateTime completo
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        Int
+  barber        Barber?       @relation(fields: [barberId], references: [id], onDelete: SetNull)
+  barberId      Int?
+  services      AppointmentService[]
+  comments      String?      @db.Text  // Permitir comentários longos
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model AppointmentService {
+  id            Int          @id @default(autoincrement())
+  appointment   Appointment  @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+  appointmentId Int
+  service       Service      @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  serviceId     Int
 }
 
 model Session {
