@@ -49,7 +49,7 @@ const Step3SelectTime: React.FC<SelectTimeProps> = ({ selectedDate, setSelectedD
             key={index}
             isSelected={selectedTime === time}
             onClick={() => handleTimeSelect(time)}
-            disabled={!selectedDate} // Desabilita horários se o dia não estiver selecionado
+            disabled={!selectedDate } // Desabilita horários se o dia não estiver selecionado
           >
             {time}
           </TimeButton>

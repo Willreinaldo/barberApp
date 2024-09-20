@@ -1,6 +1,7 @@
  import { Request, Response } from "express";
 import * as appointmentService from "../services/appointment-service";
 
+
 export const listAppointments = async (req: Request, res: Response) => {
   try {
     const appointments = await appointmentService.listAppointments();
@@ -38,6 +39,29 @@ export const deleteAppointment = async (req: Request, res: Response) => {
     res.status(204).send();
   } catch (error) {
     res.status(500).json({ error: "Erro ao deletar agendamento" });
+  }
+};
+ 
+export const checkAvailability = async (req: Request, res: Response) => {
+  const { dateTime } = req.body.params;
+  // Verifica se a data e o horário foram enviados
+  if (!dateTime) {
+    return res.status(400).json({ error: 'Data e horário são obrigatórios' });
+  }
+
+ 
+  try {
+     const date = new Date(dateTime);
+
+    const isAvailable = await appointmentService.checkTimeAvailability(date);
+
+    if (!isAvailable) {
+      return res.status(200).json({ available: false, message: 'Horário já está reservado' });
+    }
+
+    return res.status(200).json({ available: true, message: 'Horário disponível' });
+  } catch (error) {
+    return res.status(500).json({ error: 'Erro ao verificar a disponibilidade' });
   }
 };
 

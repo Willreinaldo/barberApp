@@ -70,3 +70,14 @@ export const getAppointmentById = async (id: number) => {
     },
   });
 };
+
+
+export const checkAppointmentInDatabase = async (appointmentDate: Date) => {
+  const appointment = await prisma.appointment.findFirst({
+    where: {
+      date: appointmentDate,
+    },
+  });
+
+  return appointment; 
+};
