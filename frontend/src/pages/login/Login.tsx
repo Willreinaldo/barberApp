@@ -39,16 +39,16 @@ const LoginPage: React.FC = () => {
   });
 
   async function doLogin(data: LoginFormData) {
+    console.log(data);
     try {
       const userData = await signIn(data);
-      console.log(userData);
       if (userData) {
         setAuthData({ user: userData.user, token: userData.token });
         navigate("/home");
       }
       navigate("/home");
-    } catch (err) {
-      console.log(err);
+    } catch (err:any) {
+      console.log(err.response.data.message);
     }
   }
 

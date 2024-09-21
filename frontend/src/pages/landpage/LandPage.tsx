@@ -32,7 +32,7 @@ const Landpage: React.FC = () => {
       <Header>
         <PageTitle>BARBER SHOP</PageTitle>
         <ProfileIcon
-          onClick={() => (data ? navigate("/home") : navigate("/login"))}
+          onClick={() => (data ? navigate("/agendar") : navigate("/login"))}
         >
           <CgProfile size={40} />
         </ProfileIcon>

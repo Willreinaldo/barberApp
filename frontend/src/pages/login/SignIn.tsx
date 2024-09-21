@@ -59,9 +59,9 @@ const SignInPage: React.FC = () => {
       console.log(userData);
       alert("Cadastro realizado com sucesso!");
       navigate("/login");
-    } catch (err) {
-      console.warn(err);
-      alert("Usuário ou senha indisponíveis");
+    } catch (err:any) {
+      alert(err.response.data.message);
+      console.warn(err.response.data.message);
     }
   }
 
