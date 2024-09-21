@@ -5,22 +5,29 @@ export const PageContainer = styled.div`
   flex-direction: column; / 
   justify-content: center;
   align-items: center;
-  min-height: 100vh;  
+  min-height: 79.2vh;  
   background-color: #f0f0f0;
+  padding-top: 2em;
   box-sizing: border-box; 
 `;
 
 export const AgendamentosContainer = styled.div`
   background-color: #ffffff;
-  padding: 20px;
+  padding: 2em;
   border-radius: 8px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 800px;
+  max-width: 80vw;
   box-sizing: border-box;  
   overflow-x: auto;  
 
 `;
+export const ErrorMessage = styled.div`
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+`;
+
 
 export const Table = styled.table`
   width: 100%;
@@ -65,4 +72,5 @@ export const Table = styled.table`
       font-size: 14px; /* Ajuste do tamanho da fonte no cabeçalho */
     }
   }
+    
 `;
