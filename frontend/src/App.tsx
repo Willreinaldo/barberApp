@@ -6,8 +6,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { NavbarProvider } from "./contexts/NavbarContext";
 import VerifyCredentialToken from "./hooks/verifyCredential";
 import Agendamentos from "./pages/agendamento/Agendamentos";
-import Agendar from "./pages/agendar/agendar";
-import Home from "./pages/home/Home";
+import AgendarCortePage from "./pages/agendar/AgendarCortePage";
 import Landpage from "./pages/landpage/LandPage";
 import Local from "./pages/Local/Local";
 import LoginPage from "./pages/login/Login";
@@ -32,11 +31,10 @@ const App: React.FC = () => {
                   </VerifyCredentialToken>
                 }
               >
-                <Route path="/home" element={<Home />} />
                 <Route path="/local" element={<Local />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/agendamentos" element={<Agendamentos />} />
-                <Route path="/agendar" element={<Agendar />} />
+                <Route path="/agendar" element={<AgendarCortePage />} />
               </Route>
               {/* Adicione outras rotas conforme necessário */}
             </Routes>

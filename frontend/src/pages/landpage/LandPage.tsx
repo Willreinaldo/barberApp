@@ -53,7 +53,7 @@ const Landpage: React.FC = () => {
             <img src={logo} alt="logo do sistema" />
           </LogoCenter>
           <ScheduleButton
-            onClick={() => (data ? navigate("/home") : navigate("/login"))}
+            onClick={() => (data ? navigate("/") : navigate("/agendar"))}
           >
             Quero Agendar!
           </ScheduleButton>
