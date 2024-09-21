@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import logo from "./logo.png";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ModalBackground,
   Modal,
@@ -10,32 +13,55 @@ import {
   Container,
   Input,
   Button,
-  Navigator,
+  Navigator
 } from "./Login.Styles";
 import { signUp } from "../../services/signUp";
 
+const signUpSchema = z.object({
+  name: z.string().min(3, "O nome deve ter pelo menos 3 caracteres"),
+  email: z.string().email("Email inválido"),
+  phone: z.string().regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, "Telefone inválido"),
+  password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
+});
+
+type SignUpFormData = z.infer<typeof signUpSchema>;
+
 const SignInPage: React.FC = () => {
   const navigate = useNavigate();
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    password: "",
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm<SignUpFormData>({
+    resolver: zodResolver(signUpSchema),
   });
 
-  function handleForm(e: any) {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  function handlePhoneChange(e: React.ChangeEvent<HTMLInputElement>) {
+    let phone = e.target.value;
+    phone = phone.replace(/\D/g, "");
+
+    if (phone.length <= 10) {
+      phone = phone.replace(/(\d{2})(\d)/, "($1) $2");
+      phone = phone.replace(/(\d{4})(\d)/, "$1-$2");
+    } else {
+      phone = phone.replace(/(\d{2})(\d)/, "($1) $2");
+      phone = phone.replace(/(\d{5})(\d)/, "$1-$2");
+    }
+
+    setValue("phone", phone);
   }
-  async function createAccount(e:any) {
-    e.preventDefault();
+
+  async function createAccount(data: SignUpFormData) {
     try {
-      const userData = await signUp(form);
+      const userData = await signUp(data);
       console.log(userData);
       alert("Cadastro realizado com sucesso!");
       navigate("/login");
     } catch (err) {
       console.warn(err);
-      alert("Usuário ou senha indisponiveis");
+      alert("Usuário ou senha indisponíveis");
     }
   }
 
@@ -45,36 +71,43 @@ const SignInPage: React.FC = () => {
         <Logo src={logo} alt="Logo" />
         <TitleLogo>BARBER SHOP</TitleLogo>
       </Container>
-      <Modal onSubmit={createAccount}>
+      <Modal onSubmit={handleSubmit(createAccount)}>
         <Title>Cadastro</Title>
+
         <Input
           type="email"
-          name="email"
           placeholder="Email"
-          value={form.email}
-          onChange={handleForm}
+          {...register("email")}
+          required
         />
+
+        {errors.email && <span>{errors.email.message}</span>}
         <Input
           type="text"
-          name="name"
           placeholder="Informe seu nome"
-          value={form.name}
-          onChange={handleForm}
+          {...register("name")}
+          required
         />
+        {errors.name && <span>{errors.name.message}</span>}
+
         <Input
-          type="text"
-          name="phone"
+          type="tel"
+          maxLength={15}
           placeholder="Informe seu telefone"
-          value={form.phone}
-          onChange={handleForm}
+          {...register("phone")}
+          onChange={handlePhoneChange}
+          required
         />
+        {errors.phone && <span>{errors.phone.message}</span>}
+
         <Input
           type="password"
-          name="password"
           placeholder="Password"
-          value={form.password}
-          onChange={handleForm}
+          {...register("password")}
+          required
         />
+        {errors.password && <span>{errors.password.message}</span>}
+
         <Button type="submit">Criar Conta</Button>
         <Navigator onClick={() => navigate("/login")}>
           Já possui cadastro? <span>Login</span>
