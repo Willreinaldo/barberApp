@@ -101,8 +101,7 @@ const Profile: React.FC = () => {
   };
 
   return (
-    <>
-      <ProfileContainer>
+    <ProfileContainer>
         {isEditing ? (
           <AvatarEdit 
             onAvatarChange={handleAvatarChange} 
@@ -156,7 +155,6 @@ const Profile: React.FC = () => {
           </>
         )}
       </ProfileContainer>
-     </>
   );
 };
 

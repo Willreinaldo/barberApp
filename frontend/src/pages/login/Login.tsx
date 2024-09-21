@@ -44,11 +44,12 @@ const LoginPage: React.FC = () => {
       const userData = await signIn(data);
       if (userData) {
         setAuthData({ user: userData.user, token: userData.token });
-        navigate("/home");
+        navigate("/agendar");
       }
-      navigate("/home");
-    } catch (err:any) {
+      navigate("/agendar");
+    } catch (err: any) {
       console.log(err.response.data.message);
+      alert(err.response.data.message);
     }
   }
 

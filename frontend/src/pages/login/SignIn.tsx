@@ -13,9 +13,10 @@ import {
   Container,
   Input,
   Button,
-  Navigator
+  Navigator,
 } from "./Login.Styles";
 import { signUp } from "../../services/signUp";
+import { toast, ToastContainer } from "react-toastify";
 
 const signUpSchema = z.object({
   name: z.string().min(3, "O nome deve ter pelo menos 3 caracteres"),
@@ -59,10 +60,14 @@ const SignInPage: React.FC = () => {
       console.log(userData);
       alert("Cadastro realizado com sucesso!");
       navigate("/login");
-    } catch (err:any) {
+    } catch (err: any) {
       alert(err.response.data.message);
       console.warn(err.response.data.message);
     }
+  }
+
+  function notify(message: string) {
+    toast.success(message);
   }
 
   return (
