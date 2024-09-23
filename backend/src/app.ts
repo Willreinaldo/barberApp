@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { userRoutes } from "./routers/users-router";
 import { appointmentRouter } from  "./routers/appointment-router";
+import  evaluationRouter from  "./routers/evalutation-router";
  
 import { handleApplicationErrors } from "./middlewares/erros-middleware";
 
@@ -20,6 +21,8 @@ app.use(cors({
   .use(json())
   .use("/users", userRoutes)
   .use("/agendar", appointmentRouter)
+  .use("/avaliar", evaluationRouter)
+
   
   .use(handleApplicationErrors);
 

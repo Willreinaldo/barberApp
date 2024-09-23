@@ -24,12 +24,24 @@ model User {
   updatedAt DateTime     @updatedAt
   sessions  Session[]
   appointments Appointment[]  // Relaciona o User com seus agendamentos
+  evaluations Evaluation[]  // Um usuário pode ter várias avaliações
+
 }
 
 model Barber {
   id         Int          @id @default(autoincrement())
   name       String       @db.VarChar(255)
   appointments Appointment[] // Adicionado para refletir a relação oposta
+}
+
+model Evaluation {
+  id        Int      @id @default(autoincrement())
+  rating    Int      // Nota de 1 a 5
+  comments  String?  @db.Text  // Comentário opcional
+  userId    Int      // Relacionamento com o usuário
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Service {
