@@ -5,6 +5,21 @@ export const PageContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 79vh;
+  justify-content: space-between; 
+
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+  }
 `;
 
 export const StepIndicatorContainer = styled.div`
@@ -27,6 +42,11 @@ export const Step = styled.div<{ active: boolean }>`
   font-weight: bold;
 `;
 
+export const ErrorMessage = styled.p`
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+`;
 export const StepLabel = styled.span`
   margin-top: 8px;
   font-size: 14px;

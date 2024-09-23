@@ -34,9 +34,9 @@ import { useAuthContext } from "../../contexts/AuthContext";
       console.log(userData)
       if (userData) {
          setAuthData({ user: userData.user, token: userData.token });
-        navigate("/home");  
+        navigate("/");  
       }     
-      navigate("/home");
+      navigate("/");
     } catch (err) {
       console.log(err);
     }

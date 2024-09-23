@@ -16,7 +16,7 @@ interface AuthData {
 }
 
 interface AuthContextProps {
-    authData: AuthData | null;
+    authData: AuthData ;
     setAuthData: (data: AuthData) => void;
     clearAuthData: () => void;
 }
@@ -42,5 +42,12 @@ export const useAuthContext = () => {
     if (context === undefined) {
         throw new Error("useAuthContext must be used within an AuthProvider");
     }
+
+    const { authData } = context;
+
+    if (!authData) {
+        throw new Error("No user is authenticated");
+    }
+
     return context;
 };

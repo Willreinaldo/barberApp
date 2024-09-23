@@ -38,7 +38,7 @@ export const updateAppointmentSchema = joi.object({
 
   // Schema para validar ID de agendamento
 export const getOrDeleteAppointmentSchema = joi.object({
-    id: joi.number().required().messages({
+    id: joi.number().optional().messages({
       'number.base': 'O ID do agendamento é obrigatório.',
     }),
   });
