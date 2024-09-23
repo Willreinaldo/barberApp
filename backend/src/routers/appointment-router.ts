@@ -16,6 +16,7 @@ appointmentRouter.post('/appointments', validateSchema(createAppointmentSchema),
 // Valida os dados de atualização com o updateAppointmentSchema
 appointmentRouter.put('/appointments/:id', validateSchema(updateAppointmentSchema), AppointmentController.updateAppointment);
 
+//Endpoint para verificar um agendamento existente
 appointmentRouter.post('/check', AppointmentController.checkAvailability);
 
 // Endpoint para deletar um agendamento (DELETE /appointments/:id)

@@ -5,6 +5,7 @@ import Step2SelectServices from './steps/step2/Step2SelectServices';
 import Step3SelectTime from './steps/step3/Step3SelectTime';
 import Step4Review from './steps/step4/Step4Review';
 import { Barber, Service } from './AgendarCortePage.types';
+import { useAuthContext } from './../../contexts/AuthContext';
 import { ButtonContainer, StyledButton, PageContainer, ErrorMessage } from './AgendarCortePage.styles';
 import { formatDate } from '../../utils/formatDate';
 import axios from 'axios';
@@ -29,6 +30,10 @@ const AgendarCortePage: React.FC = () => {
   const [comments, setComments] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>(''); 
 
+  const { authData } = useAuthContext();
+
+    const userId = authData.user.id; 
+    console.log(userId);
   const isTimeAvailable = async (dateTime: string): Promise<boolean> => {
     try {
       const response = await axios.post(`${apiUrl}/agendar/check`, {
@@ -108,7 +113,7 @@ const AgendarCortePage: React.FC = () => {
     const appointmentDate = new Date(`${formattedDate}T${selectedTime}:00Z`).toISOString();
 
     const appointmentData = {
-      userId: 1,
+      userId: userId,
       barberId: selectedBarber.id,
       serviceIds: selectedServices.map((service) => service.id),
       date: appointmentDate,

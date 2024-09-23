@@ -3,7 +3,7 @@ import * as appointmentService from "../services/appointment-service";
 
 
 export const listAppointments = async (req: Request, res: Response) => {
-  try {
+   try {
     const appointments = await appointmentService.listAppointments();
     res.json(appointments);
   } catch (error) {
@@ -22,6 +22,7 @@ export const createAppointment = async (req: Request, res: Response) => {
 };
 
 export const updateAppointment = async (req: Request, res: Response) => {
+  console.log(req.body);
   try {
     const updatedAppointment = await appointmentService.updateAppointment(
       Number(req.params.id),

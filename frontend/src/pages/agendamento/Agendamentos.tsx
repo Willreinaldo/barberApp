@@ -14,7 +14,8 @@ const Agendamentos: React.FC = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [agendamentos, setAgendamentos] = useState<AgendamentoType[]>([]);
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [editedData, setEditedData] = useState<{ horario: string; services: number[] }>({
+  const [editedData, setEditedData] = useState<{ data: string; horario: string; services: number[] }>({
+    data: '',
     horario: '',
     services: [],
   });
@@ -31,16 +32,23 @@ const Agendamentos: React.FC = () => {
     fetchAgendamentos();
   }, []);
 
-  const excluirAgendamento = (id: number) => {
-    const novosAgendamentos = agendamentos.map((agendamento) =>
-      agendamento.id === id ? { ...agendamento, status: 'Cancelado' } : agendamento
-    );
-    setAgendamentos(novosAgendamentos);
+  // Função para deletar um agendamento
+  const excluirAgendamento = async (appointmentId: number) => {
+    try {
+      await axios.delete(`${apiUrl}/agendar/appointments/${appointmentId}`);
+      console.log(`Agendamento ${appointmentId} excluído com sucesso!`);
+
+      // Atualizar a lista de agendamentos, removendo o excluído
+      setAgendamentos(agendamentos.filter((agendamento) => agendamento.id !== appointmentId));
+    } catch (error) {
+      console.error('Erro ao excluir o agendamento:', error);
+    }
   };
 
   const iniciarEdicao = (agendamento: AgendamentoType) => {
     setEditingId(agendamento.id);
     setEditedData({
+      data: new Date(agendamento.date).toISOString().split('T')[0], // ISO format YYYY-MM-DD para o input date
       horario: new Date(agendamento.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       services: agendamento.services.map((service) => service.service.id),
     });
@@ -48,29 +56,54 @@ const Agendamentos: React.FC = () => {
   };
 
   const confirmarEdicao = async (id: number) => {
-    const formattedDate = new Date(agendamentos.find((agendamento) => agendamento.id === id)?.date || '').toISOString();
-    const appointmentDate = new Date(`${formattedDate}T${editedData.horario}:00Z`).toISOString();
-    
-    const isAvailable = await verificarDisponibilidade(appointmentDate);
+    try {
+      // Formata a data e o horário para o formato ISO
+      const appointmentDate = new Date(`${editedData.data}T${editedData.horario}:00`).toISOString();
+      console.log(appointmentDate);
 
-    if (!isAvailable) {
-      setError('Este horário já está reservado, escolha outro.');
-      return;
+      // Buscar o agendamento original
+      const agendamentoOriginal = agendamentos.find(agendamento => agendamento.id === id);
+
+      // Verifica se a data/hora foram alteradas
+      const dataHoraAlterada = appointmentDate !== agendamentoOriginal?.date;
+
+      if (dataHoraAlterada) {
+        // Verifica a disponibilidade apenas se a data ou o horário forem alterados
+        const isAvailable = await verificarDisponibilidade(appointmentDate);
+
+        if (!isAvailable) {
+          setError('Este horário já está reservado, escolha outro.');
+          return;
+        }
+      }
+
+      // Chamada à API para confirmar a edição
+      await axios.put(`${apiUrl}/agendar/appointments/${id}`, {
+        date: appointmentDate,  // Envia a nova data e horário
+        serviceIds: editedData.services, // Envia os novos serviços selecionados
+      });
+
+      // Atualiza o estado dos agendamentos no frontend
+      const novosAgendamentos = agendamentos.map((agendamento) =>
+        agendamento.id === id
+          ? {
+              ...agendamento,
+              date: appointmentDate, // Atualiza a data e horário no estado local
+              services: agendamento.services.filter((service) =>
+                editedData.services.includes(service.service.id) // Atualiza os serviços
+              ),
+            }
+          : agendamento
+      );
+      
+      // Atualiza o estado
+      setAgendamentos(novosAgendamentos);
+      setEditingId(null); // Sai do modo de edição
+      setError(''); // Limpa possíveis erros
+    } catch (error) {
+      console.error('Erro ao editar agendamento:', error);
+      setError('Ocorreu um erro ao tentar editar o agendamento.');
     }
-
-    const novosAgendamentos = agendamentos.map((agendamento) =>
-      agendamento.id === id
-        ? {
-            ...agendamento,
-            date: appointmentDate,
-            services: agendamento.services.filter((service) =>
-              editedData.services.includes(service.service.id)
-            ),
-          }
-        : agendamento
-    );
-    setAgendamentos(novosAgendamentos);
-    setEditingId(null);
   };
 
   const cancelarEdicao = () => {
@@ -79,10 +112,12 @@ const Agendamentos: React.FC = () => {
   };
 
   const verificarDisponibilidade = async (dateTime: string): Promise<boolean> => {
+    console.log(dateTime);
     try {
       const response = await axios.post(`${apiUrl}/agendar/check`, {
         params: { dateTime: dateTime },
       });
+      console.log(response.data.available);
       return response.data.available;
     } catch (error) {
       console.error('Erro ao verificar disponibilidade:', error);
@@ -117,7 +152,17 @@ const Agendamentos: React.FC = () => {
 
               return (
                 <tr key={agendamento.id}>
-                  <td>{new Date(agendamento.date).toLocaleDateString()}</td>
+                  <td>
+                    {editingId === agendamento.id ? (
+                      <input
+                        type="date"
+                        value={editedData.data}
+                        onChange={(e) => setEditedData({ ...editedData, data: e.target.value })}
+                      />
+                    ) : (
+                      new Date(agendamento.date).toLocaleDateString()
+                    )}
+                  </td>
                   <td>
                     {editingId === agendamento.id ? (
                       <select
@@ -143,7 +188,7 @@ const Agendamentos: React.FC = () => {
                           <input
                             type="checkbox"
                             checked={editedData.services.includes(1)} // Barba ID = 1
-                            onChange={(e) => {
+                            onChange={() => {
                               const selectedServices = editedData.services.includes(1)
                                 ? editedData.services.filter((id) => id !== 1)
                                 : [...editedData.services, 1];
@@ -156,7 +201,7 @@ const Agendamentos: React.FC = () => {
                           <input
                             type="checkbox"
                             checked={editedData.services.includes(2)} // Cabelo ID = 2
-                            onChange={(e) => {
+                            onChange={() => {
                               const selectedServices = editedData.services.includes(2)
                                 ? editedData.services.filter((id) => id !== 2)
                                 : [...editedData.services, 2];
