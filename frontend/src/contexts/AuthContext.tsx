@@ -43,11 +43,12 @@ export const useAuthContext = () => {
         throw new Error("useAuthContext must be used within an AuthProvider");
     }
 
-    const { authData } = context;
+    // const { authData } = context;
 
-    if (!authData) {
-        throw new Error("No user is authenticated");
-    }
+    // console.log("olha aqui",authData)
+    // if (!authData) {
+    //     throw new Error("No user is authenticated");
+    // }
 
     return context;
 };
