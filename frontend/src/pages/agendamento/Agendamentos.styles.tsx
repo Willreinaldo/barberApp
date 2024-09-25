@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const PageContainer = styled.div`
   display: flex;
@@ -6,6 +6,7 @@ export const PageContainer = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 79.2vh;  
+  height:90vh;
   background-color: #f0f0f0;
   padding-top: 2em;
   box-sizing: border-box; 
@@ -18,9 +19,14 @@ export const AgendamentosContainer = styled.div`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 80vw;
-  box-sizing: border-box;  
-  overflow-x: auto;  
+  box-sizing: border-box;
+  overflow-x: auto;
 
+  h1 {
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 24px;
+  }
 `;
 export const ErrorMessage = styled.div`
   color: red;
@@ -28,16 +34,16 @@ export const ErrorMessage = styled.div`
   font-size: 14px;
 `;
 
-
 export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
 
-  th, td {
+  th,
+  td {
     padding: 12px;
     text-align: left;
     border: 1px solid #ddd;
-    white-space: nowrap; 
+    white-space: nowrap;
   }
 
   thead th {
@@ -54,7 +60,9 @@ export const Table = styled.table`
     background-color: #ff4d4d;
     color: white;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
+    margin-right: 5px;
   }
 
   button:hover {
@@ -63,7 +71,8 @@ export const Table = styled.table`
 
   /* Media query para telas menores */
   @media (max-width: 630px) {
-    th, td {
+    th,
+    td {
       padding: 8px;
       font-size: 14px; /* Reduz o tamanho da fonte */
     }
@@ -72,5 +81,4 @@ export const Table = styled.table`
       font-size: 14px; /* Ajuste do tamanho da fonte no cabeçalho */
     }
   }
-    
 `;

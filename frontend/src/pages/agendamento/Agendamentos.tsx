@@ -30,7 +30,7 @@ const Agendamentos: React.FC = () => {
     };
 
     fetchAgendamentos();
-  }, []);
+  }, [agendamentos]);
 
   // Função para deletar um agendamento
   const excluirAgendamento = async (appointmentId: number) => {
@@ -56,6 +56,7 @@ const Agendamentos: React.FC = () => {
   };
 
   const confirmarEdicao = async (id: number) => {
+    console.log("teste")
     try {
       // Formata a data e o horário para o formato ISO
       const appointmentDate = new Date(`${editedData.data}T${editedData.horario}:00`).toISOString();
