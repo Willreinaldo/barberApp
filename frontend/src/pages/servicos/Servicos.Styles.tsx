@@ -78,6 +78,48 @@ export const ImageContainer = styled.div`
   padding: 20px;
 `;
 
+export const TextAndImageContainer = styled.div`
+  display: flex;
+  justify-content: center; /* Centraliza o conteúdo */
+  align-items: center; /* Alinha verticalmente */
+  padding: 20px;
+`;
+
+export const TextContainer = styled.div`
+  max-width: 50%; /* Limita a largura do texto */
+  margin-right: 10px; /* Reduz o espaço à direita do texto */
+  text-align: right; /* Alinha o texto à direita para ficar próximo da imagem */
+`;
+
+export const StyledImageLarge = styled.img`
+  width: 570px;
+  height: 712px;
+  object-fit: cover; /* Garante que a imagem mantenha suas proporções */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+export const HighlightedTitle = styled.h2`
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem; /* Aumenta o tamanho da frase */
+  color: #000; /* Cor preta */
+  margin-bottom: 20px; /* Aumenta o espaçamento entre o título e o texto */
+  text-align: left; /* Alinha o título à esquerda */
+`;
+
+export const Paragraph2 = styled.p`
+  color: #666;
+  line-height: 1.8;
+  font-size: 1.2em; /* Um pouco maior para melhor legibilidade */
+  margin: 10px 0;
+  text-align: left; /* Alinha o texto abaixo à esquerda também */
+
+  /* Responsividade para Paragraph */
+  @media (max-width: 768px) {
+    font-size: 1em;
+  }
+`;
+
 export const Footer = styled.footer`
   text-align: center;
   font-size: 0.9em;
