@@ -14,6 +14,7 @@ import { NavbarProvider } from "./contexts/NavbarContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import Landpage from "./pages/landpage/LandPage";
 import VerifyCredentialToken from "./hooks/verifyCredential";
+import Avaliacoes from "./pages/avaliacoes/Avaliacoes";
 
 const App: React.FC = () => {
   return (
@@ -34,7 +35,8 @@ const App: React.FC = () => {
             >
               <Route path="/local" element={<Local />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/agendamentos" element={<Agendamentos />} />   
+              <Route path="/agendamentos" element={<Agendamentos />} />
+              <Route path="/avaliacoes" element={<Avaliacoes/>} />      
               <Route path="/agendar" element={<AgendarCortePage/>} />
             </Route>
             <Route path="/login" element={<LoginPage />} />

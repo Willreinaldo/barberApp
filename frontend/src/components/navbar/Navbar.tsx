@@ -24,6 +24,7 @@ const Navbar: React.FC = () => {
       </LogoContainer>
       <NavLinks>
         <NavLink href="/agendamentos">Agendamentos</NavLink>
+        <NavLink href="/avaliacoes">Avaliações</NavLink>
         <NavLink href="/local">Localização</NavLink>
         <NavLink
           href="/login"

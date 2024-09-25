@@ -7,16 +7,20 @@ type AgendamentoType = {
   id: number;
   date: string; // Contém data e horário
   barber: { id: number; name: string };
-  services: { service: { id: number; name: string; price: string } }[]; // price como string
+  comments: string; // Campo de comentários
+  services: {
+    service: { id: number; name: string; price: string };
+  }[]; // price como string
 };
 
 const Agendamentos: React.FC = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [agendamentos, setAgendamentos] = useState<AgendamentoType[]>([]);
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [editedData, setEditedData] = useState<{ data: string; horario: string; services: number[] }>({
+  const [editedData, setEditedData] = useState<{ data: string; horario: string; comments: string; services: number[] }>({
     data: '',
     horario: '',
+    comments: '',
     services: [],
   });
   const [error, setError] = useState<string | null>(null); // Para mostrar erros na verificação
@@ -50,6 +54,7 @@ const Agendamentos: React.FC = () => {
     setEditedData({
       data: new Date(agendamento.date).toISOString().split('T')[0], // ISO format YYYY-MM-DD para o input date
       horario: new Date(agendamento.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      comments: agendamento.comments, // Capturando os comentários do agendamento
       services: agendamento.services.map((service) => service.service.id),
     });
     setError(null); // Limpar o erro ao iniciar uma nova edição
@@ -57,18 +62,12 @@ const Agendamentos: React.FC = () => {
 
   const confirmarEdicao = async (id: number) => {
     try {
-      // Formata a data e o horário para o formato ISO
       const appointmentDate = new Date(`${editedData.data}T${editedData.horario}:00`).toISOString();
-      console.log(appointmentDate);
-
-      // Buscar o agendamento original
       const agendamentoOriginal = agendamentos.find(agendamento => agendamento.id === id);
 
-      // Verifica se a data/hora foram alteradas
       const dataHoraAlterada = appointmentDate !== agendamentoOriginal?.date;
 
       if (dataHoraAlterada) {
-        // Verifica a disponibilidade apenas se a data ou o horário forem alterados
         const isAvailable = await verificarDisponibilidade(appointmentDate);
 
         if (!isAvailable) {
@@ -77,29 +76,28 @@ const Agendamentos: React.FC = () => {
         }
       }
 
-      // Chamada à API para confirmar a edição
       await axios.put(`${apiUrl}/agendar/appointments/${id}`, {
-        date: appointmentDate,  // Envia a nova data e horário
-        serviceIds: editedData.services, // Envia os novos serviços selecionados
+        date: appointmentDate,
+        comments: editedData.comments, // Incluindo os comentários na atualização
+        serviceIds: editedData.services,
       });
 
-      // Atualiza o estado dos agendamentos no frontend
       const novosAgendamentos = agendamentos.map((agendamento) =>
         agendamento.id === id
           ? {
               ...agendamento,
-              date: appointmentDate, // Atualiza a data e horário no estado local
+              date: appointmentDate,
+              comments: editedData.comments, // Atualizando comentários
               services: agendamento.services.filter((service) =>
-                editedData.services.includes(service.service.id) // Atualiza os serviços
+                editedData.services.includes(service.service.id)
               ),
             }
           : agendamento
       );
-      
-      // Atualiza o estado
+
       setAgendamentos(novosAgendamentos);
-      setEditingId(null); // Sai do modo de edição
-      setError(''); // Limpa possíveis erros
+      setEditingId(null);
+      setError('');
     } catch (error) {
       console.error('Erro ao editar agendamento:', error);
       setError('Ocorreu um erro ao tentar editar o agendamento.');
@@ -112,12 +110,10 @@ const Agendamentos: React.FC = () => {
   };
 
   const verificarDisponibilidade = async (dateTime: string): Promise<boolean> => {
-    console.log(dateTime);
     try {
       const response = await axios.post(`${apiUrl}/agendar/check`, {
         params: { dateTime: dateTime },
       });
-      console.log(response.data.available);
       return response.data.available;
     } catch (error) {
       console.error('Erro ao verificar disponibilidade:', error);
@@ -137,6 +133,7 @@ const Agendamentos: React.FC = () => {
               <th>Data</th>
               <th>Horário</th>
               <th>Profissional</th>
+              <th>Comentário</th> {/* Coluna para comentários */}
               <th>Serviço</th>
               <th>Valor (R$)</th>
               <th>Ações</th>
@@ -180,6 +177,16 @@ const Agendamentos: React.FC = () => {
                     )}
                   </td>
                   <td>{agendamento.barber.name}</td>
+                  <td>
+                    {editingId === agendamento.id ? (
+                      <textarea
+                        value={editedData.comments}
+                        onChange={(e) => setEditedData({ ...editedData, comments: e.target.value })}
+                      />
+                    ) : (
+                      agendamento.comments // Exibir comentários
+                    )}
+                  </td>
                   <td>
                     {editingId === agendamento.id ? (
                       <>
@@ -234,10 +241,11 @@ const Agendamentos: React.FC = () => {
             })}
           </tbody>
         </Table>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>} {/* Exibir mensagem de erro */}
       </AgendamentosContainer>
     </PageContainer>
   );
 };
 
 export default Agendamentos;
+
