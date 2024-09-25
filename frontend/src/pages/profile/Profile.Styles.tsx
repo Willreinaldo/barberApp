@@ -1,5 +1,5 @@
 // src/pages/profile/ProfileStyles.tsx
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ProfileContainer = styled.div`
   display: flex;
@@ -36,8 +36,70 @@ export const Button = styled.button`
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
-  background-color: #0051B1;
+  background-color: #0051b1;
   color: #fff;
   cursor: pointer;
   margin: 10px 0;
+`;
+
+export const ModalBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+export const ModalContainer = styled.div`
+  background-color: white;
+  width: 400px;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2);
+`;
+
+export const ModalTitle = styled.h2`
+  margin-bottom: 20px;
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+export const ButtonModal = styled.button`
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+
+  &.cancel {
+    background-color: #ccc;
+    color: #000;
+  }
+
+  &.delete {
+    background-color: #e74c3c;
+    color: white;
+  }
+`;
+
+export const OpenModalButton = styled.button`
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
 `;

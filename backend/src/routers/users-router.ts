@@ -9,7 +9,7 @@ userRoutes
   .post("/signup", validateSchema(signUpSchema), signUp)
   .post("/signin", validateSchema(signInSchema), signIn)
   .get("/user/:id", validateSchema(getUserSchema), getUser)
-  .put("/user/:id", validateSchema(userUpdateSchema), updateUser);  
+  .put("/user/:id", validateSchema(userUpdateSchema), updateUser);
 
 
 export { userRoutes };

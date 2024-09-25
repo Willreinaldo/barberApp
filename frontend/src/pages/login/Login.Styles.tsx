@@ -76,6 +76,8 @@ export const Button = styled.button`
   color: white;
   border-radius: 10px;
   font-size: 18px;
+  display: flex;
+  justify-content: center;
   color: #000;
   cursor: pointer;
   &:hover {
