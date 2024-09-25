@@ -31,7 +31,7 @@ export const StyledImage = styled.img`
   backface-visibility: hidden; /* Oculta o lado de trás da imagem */
 `;
 
-// Texto que será exibido sobre a imagem
+// Texto sobreposto
 export const OverlayText = styled.div`
   position: absolute;
   top: 0;
@@ -39,6 +39,7 @@ export const OverlayText = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
@@ -48,6 +49,26 @@ export const OverlayText = styled.div`
   transform: rotateY(180deg); /* Inicia com a rotação inversa */
   backface-visibility: hidden; /* Oculta o lado de trás do texto */
 `;
+
+// Título destacado com Playfair Display
+export const OverlayTitle = styled.h2`
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #FFD700; /* Cor dourada para destaque */
+  text-align: center;
+  font-family: 'Playfair Display', serif; /* Aplica a fonte Playfair Display */
+`;
+
+// Descrição organizada com Roboto
+export const OverlayDescription = styled.p`
+  font-size: 0.9em;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 80%;
+  font-family: 'Roboto', sans-serif; /* Aplica a fonte Roboto */
+`;
+
 
 // Contêiner de imagens
 export const ImageContainer = styled.div`
