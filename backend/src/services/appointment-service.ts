@@ -20,3 +20,12 @@ export const deleteAppointment = async (id: number) => {
 export const getAppointment = async (id: number) => {
   return await appointmentRepository.getAppointmentById(id);
 };
+
+
+export const checkTimeAvailability = async (appointmentDate: Date): Promise<boolean> => {
+  const appointmentExists = await appointmentRepository.checkAppointmentInDatabase(appointmentDate);
+  console.log(appointmentDate);
+  console.log(appointmentExists);
+
+  return !appointmentExists; 
+};

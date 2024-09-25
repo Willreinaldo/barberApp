@@ -34,20 +34,26 @@ export const createAppointment = async (data: any) => {
 };
 
 export const updateAppointment = async (id: number, data: any) => {
-  return await prisma.appointment.update({
-    where: { id },
-    data: {
-      date: new Date(data.date),
-      barberId: data.barberId,
-      comments: data.comments,
-      services: {
-        deleteMany: {}, 
-        create: data.services.map((serviceId: number) => ({
-          serviceId,
-        })),
+  try {
+
+    return await prisma.appointment.update({
+      where: { id },
+      data: {
+        date: new Date(data.date),
+        barberId: data.barberId,
+        comments: data.comments,
+        services: {
+          deleteMany: {},
+          create: data.serviceIds.map((serviceId: number) => ({
+            serviceId,
+          })),
+        },
       },
-    },
-  });
+    });
+  } catch (error) {
+    console.error('Erro ao atualizar o agendamento:', error);
+    throw new Error('Não foi possível atualizar o agendamento.');
+  }
 };
 
 export const deleteAppointment = async (id: number) => {
@@ -69,4 +75,16 @@ export const getAppointmentById = async (id: number) => {
       },
     },
   });
+};
+
+
+export const checkAppointmentInDatabase = async (appointmentDate: Date) => {
+  console.log(appointmentDate);
+  const appointment = await prisma.appointment.findFirst({
+    where: {
+      date: appointmentDate,
+    },
+  });
+
+  return appointment; 
 };

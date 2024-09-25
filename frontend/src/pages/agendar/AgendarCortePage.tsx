@@ -5,14 +5,13 @@ import Step2SelectServices from './steps/step2/Step2SelectServices';
 import Step3SelectTime from './steps/step3/Step3SelectTime';
 import Step4Review from './steps/step4/Step4Review';
 import { Barber, Service } from './AgendarCortePage.types';
-import { ButtonContainer, StyledButton, PageContainer } from './AgendarCortePage.styles';
-import { formatDate } from '../../utils/formatDate'; 
+import { useAuthContext } from './../../contexts/AuthContext';
+import { ButtonContainer, StyledButton, PageContainer, ErrorMessage } from './AgendarCortePage.styles';
+import { formatDate } from '../../utils/formatDate';
 import axios from 'axios';
 
 const barbers: Barber[] = [
-  { id: 1, name: 'João', photo: '/images/joao.png' },
-  { id: 2, name: 'Nathan', photo: '/images/nathan.png' },
-  { id: 3, name: 'Lucas', photo: '/images/lucas.png' },
+  { id: 1, name: 'João', photo: '../../assets/barbeiro.png' },
 ];
 
 const services: Service[] = [
@@ -21,7 +20,6 @@ const services: Service[] = [
 ];
 
 const AgendarCortePage: React.FC = () => {
-
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -30,8 +28,58 @@ const AgendarCortePage: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [comments, setComments] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>(''); 
 
-  const handleNextStep = () => {
+  const { authData } = useAuthContext();
+
+    const userId = authData.user.id; 
+    console.log(userId);
+  const isTimeAvailable = async (dateTime: string): Promise<boolean> => {
+    try {
+      const response = await axios.post(`${apiUrl}/agendar/check`, {
+        params: { dateTime: dateTime },
+      });
+      return response.data.available;
+    } catch (error) {
+      console.error('Erro ao verificar disponibilidade:', error);
+      return false;
+    }
+  };
+
+  const handleNextStep = async () => {
+    // Limpar a mensagem de erro ao mudar de passo
+    setErrorMessage('');
+
+    // Verificar a seleção do barbeiro na etapa 1
+    if (currentStep === 1 && !selectedBarber) {
+      setErrorMessage('Por favor, selecione um barbeiro.');
+      return;
+    }
+
+    // Verificar a seleção de serviços na etapa 2
+    if (currentStep === 2 && selectedServices.length === 0) {
+      setErrorMessage('Por favor, selecione ao menos um serviço.');
+      return;
+    }
+
+    // Verificar a disponibilidade de horário na etapa 3
+    if (currentStep === 3) {
+      if (!selectedDate || !selectedTime) {
+        setErrorMessage('Por favor, selecione uma data e um horário.');
+        return;
+      }
+
+      const formattedDate = formatDate(selectedDate);
+      const appointmentDate = new Date(`${formattedDate}T${selectedTime}:00Z`).toISOString();
+      
+      const isAvailable = await isTimeAvailable(appointmentDate);
+      if (!isAvailable) {
+        setErrorMessage('O horário selecionado já está reservado. Por favor, escolha outro horário.');
+        return;
+      }
+    }
+
+    // Avançar para o próximo passo se todas as validações estiverem corretas
     if (currentStep < 4) {
       setCurrentStep(currentStep + 1);
     }
@@ -55,32 +103,28 @@ const AgendarCortePage: React.FC = () => {
 
   const totalPrice = selectedServices.reduce((acc, service) => acc + service.price, 0);
 
-    const handleConfirm = async () => {
+  const handleConfirm = async () => {
     if (!selectedBarber || !selectedDate || !selectedTime || selectedServices.length === 0) {
-      window.alert('Por favor, preencha todos os campos antes de confirmar.');
+      setErrorMessage('Por favor, preencha todos os campos antes de confirmar.');
       return;
     }
 
-    console.log(selectedDate);
-    const formattedDate  = formatDate(selectedDate);
-    console.log(formattedDate);
-
+    const formattedDate = formatDate(selectedDate);
     const appointmentDate = new Date(`${formattedDate}T${selectedTime}:00Z`).toISOString();
-    console.log(appointmentDate);
 
     const appointmentData = {
-      userId: 1,
+      userId: userId,
       barberId: selectedBarber.id,
-      serviceIds: selectedServices.map(service => service.id),
+      serviceIds: selectedServices.map((service) => service.id),
       date: appointmentDate,
-      comments: comments || '', // Se não houver comentário, envia uma string vazia
+      comments: comments || '',
     };
 
     try {
       await axios.post(`${apiUrl}/agendar/appointments`, appointmentData);
       window.alert('Agendamento confirmado!');
     } catch (error) {
-      window.alert('Erro ao confirmar o agendamento. Tente novamente.');
+      setErrorMessage('Erro ao confirmar o agendamento. Tente novamente.');
     }
   };
 
@@ -102,12 +146,14 @@ const AgendarCortePage: React.FC = () => {
         />
       )}
       {currentStep === 3 && (
-        <Step3SelectTime
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          selectedTime={selectedTime}
-          setSelectedTime={setSelectedTime}
-        />
+        <>
+          <Step3SelectTime
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            selectedTime={selectedTime}
+            setSelectedTime={setSelectedTime}
+          />
+        </>
       )}
       {currentStep === 4 && (
         <Step4Review
@@ -118,7 +164,7 @@ const AgendarCortePage: React.FC = () => {
           totalPrice={totalPrice}
           comments={comments}
           setComments={setComments}
-          handleConfirm={handleConfirm}  
+          handleConfirm={handleConfirm}
         />
       )}
       <ButtonContainer>
@@ -129,6 +175,7 @@ const AgendarCortePage: React.FC = () => {
           <StyledButton onClick={handleNextStep}>Próximo</StyledButton>
         )}
       </ButtonContainer>
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </PageContainer>
   );
 };
