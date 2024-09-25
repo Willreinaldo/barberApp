@@ -29,11 +29,11 @@ export const LogoText = styled.h1`
 `;
 
 export const LogoImage = styled.img`
-  width: 50px;
-  height: 50px;
+  /* width: 50px; */
+  height: 40px;
 
   @media (max-width: 768px) {
-    width: 40px;
+    /* width: 40px; */
     height: 40px;
   }
 `;
