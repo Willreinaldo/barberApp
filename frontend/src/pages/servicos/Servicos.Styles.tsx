@@ -6,7 +6,11 @@ export const ImageWrapper = styled.div`
   width: 300px;
   height: auto;
   perspective: 1000px; /* Dá o efeito de profundidade 3D */
-  
+
+  @media (max-width: 768px) {
+    width: 100%; /* Faz a imagem ocupar toda a largura em dispositivos móveis */
+  }
+
   &:hover {
     /* Aplica a rotação na imagem ao passar o mouse */
     img {
@@ -48,6 +52,10 @@ export const OverlayText = styled.div`
   transition: opacity 0.6s ease, transform 0.6s ease;
   transform: rotateY(180deg); /* Inicia com a rotação inversa */
   backface-visibility: hidden; /* Oculta o lado de trás do texto */
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem; /* Diminui o tamanho do texto em dispositivos menores */
+  }
 `;
 
 // Título destacado com Playfair Display
@@ -67,8 +75,11 @@ export const OverlayDescription = styled.p`
   text-align: center;
   max-width: 80%;
   font-family: 'Roboto', sans-serif; /* Aplica a fonte Roboto */
-`;
 
+  @media (max-width: 768px) {
+    font-size: 0.8rem; /* Ajusta o tamanho da descrição em telas menores */
+  }
+`;
 
 // Contêiner de imagens
 export const ImageContainer = styled.div`
@@ -76,6 +87,11 @@ export const ImageContainer = styled.div`
   justify-content: center;
   gap: 20px;
   padding: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column; /* Empilha as imagens verticalmente em telas menores */
+    gap: 10px; /* Reduz o espaçamento entre as imagens */
+  }
 `;
 
 export const TextAndImageContainer = styled.div`
@@ -83,12 +99,23 @@ export const TextAndImageContainer = styled.div`
   justify-content: center; /* Centraliza o conteúdo */
   align-items: center; /* Alinha verticalmente */
   padding: 20px;
+
+  @media (max-width: 1024px) {
+    flex-direction: column; /* Alinha verticalmente em tablets e dispositivos menores */
+    padding: 10px;
+  }
 `;
 
 export const TextContainer = styled.div`
   max-width: 50%; /* Limita a largura do texto */
   margin-right: 10px; /* Reduz o espaço à direita do texto */
   text-align: right; /* Alinha o texto à direita para ficar próximo da imagem */
+
+  @media (max-width: 1024px) {
+    max-width: 100%; /* Faz o texto ocupar toda a largura em dispositivos menores */
+    text-align: center; /* Centraliza o texto em telas menores */
+    margin-right: 0; /* Remove o espaçamento lateral */
+  }
 `;
 
 export const StyledImageLarge = styled.img`
@@ -97,6 +124,11 @@ export const StyledImageLarge = styled.img`
   object-fit: cover; /* Garante que a imagem mantenha suas proporções */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 1024px) {
+    width: 100%; /* A imagem ocupa 100% da largura do container em telas menores */
+    height: auto;
+  }
 `;
 
 export const HighlightedTitle = styled.h2`
@@ -105,6 +137,11 @@ export const HighlightedTitle = styled.h2`
   color: #000; /* Cor preta */
   margin-bottom: 20px; /* Aumenta o espaçamento entre o título e o texto */
   text-align: left; /* Alinha o título à esquerda */
+
+  @media (max-width: 768px) {
+    font-size: 2rem; /* Ajusta o tamanho do título em telas menores */
+    text-align: center; /* Centraliza o título em dispositivos menores */
+  }
 `;
 
 export const Paragraph2 = styled.p`
@@ -116,7 +153,8 @@ export const Paragraph2 = styled.p`
 
   /* Responsividade para Paragraph */
   @media (max-width: 768px) {
-    font-size: 1em;
+    font-size: 1em; /* Reduz o tamanho da fonte em dispositivos menores */
+    text-align: center; /* Centraliza o texto em dispositivos menores */
   }
 `;
 
