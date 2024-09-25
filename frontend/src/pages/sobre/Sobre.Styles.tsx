@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
   background-color: white;
@@ -15,7 +15,14 @@ export const Header = styled.header`
 `;
 
 export const Section = styled.section`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas lado a lado */
+  grid-gap: 20px; /* Espaçamento entre as caixas */
   margin-bottom: 30px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; /* Empilha as caixas no mobile */
+  }
 `;
 
 export const Box = styled.div`
@@ -23,7 +30,6 @@ export const Box = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  margin-bottom: 20px;
   transition: transform 0.2s;
 
   &:hover {
@@ -36,6 +42,11 @@ export const Title = styled.h1`
   font-family: 'Georgia', serif;
   font-size: 2.5em;
   margin-bottom: 10px;
+
+  /* Responsividade para Title */
+  @media (max-width: 768px) {
+    font-size: 2em;
+  }
 `;
 
 export const Subtitle = styled.h2`
@@ -43,6 +54,11 @@ export const Subtitle = styled.h2`
   font-family: 'Arial', sans-serif;
   font-size: 1.8em;
   margin: 20px 0 10px;
+
+  /* Responsividade para Subtitle */
+  @media (max-width: 768px) {
+    font-size: 1.5em;
+  }
 `;
 
 export const Paragraph = styled.p`
@@ -50,6 +66,11 @@ export const Paragraph = styled.p`
   line-height: 1.8;
   font-size: 1em;
   margin: 10px 0;
+
+  /* Responsividade para Paragraph */
+  @media (max-width: 768px) {
+    font-size: 0.9em;
+  }
 `;
 
 export const List = styled.ul`
@@ -61,8 +82,8 @@ export const List = styled.ul`
     padding: 5px 0;
     position: relative;
     margin-left: 20px;
+
     &:before {
-      content: '✓';
       position: absolute;
       left: 0;
       color: #4caf50;
@@ -74,10 +95,9 @@ export const Footer = styled.footer`
   text-align: center;
   font-size: 0.9em;
   color: #666;
-
-  Paragraph {
-    margin: 5px 0;
-  }
+  padding: 20px 0;
+  background-color: #333;
+  color: white;
 `;
 
 export const ImageContainer = styled.div`
