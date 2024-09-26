@@ -9,6 +9,14 @@ async function findByEmail(email: string) {
   });
 }
 
+async function deleteUser(id:number){
+  return prisma.user.delete({
+    where:{
+      id
+    }
+  })
+}
+
 async function create(data: Prisma.UserUncheckedCreateInput) {
   return prisma.user.create({
     data,
@@ -49,11 +57,13 @@ export const getUserRepository = async (id: number) => {
     throw new Error('Erro ao buscar usuário no repositório');
   }
 };
+
 const userRepository = {
   findByEmail,
   create,
   update, 
   getUserRepository,
+  deleteUser
 };
 
 export default userRepository;

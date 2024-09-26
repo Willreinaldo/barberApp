@@ -12,12 +12,14 @@ import {
   ModalTitle,
   ProfileContainer,
 } from "./Profile.Styles";
+import axios from "axios";
 
 const Profile: React.FC = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const { authData, setAuthData } = useAuthContext();
   const user = authData?.user;
+  const token = authData?.token;
 
   interface UpdateUserData {
     name?: string;
@@ -121,7 +123,20 @@ const Profile: React.FC = () => {
   };
 
   const deleteAccount = () => {
-    navigate("/signin"); // Redireciona para a página de login
+    axios
+      .delete(`${apiUrl}/users/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data.message);
+        localStorage.removeItem("authData");
+        navigate("/signin");
+      })
+      .catch((error) => {
+        console.error("Erro ao deletar aluno:", error);
+      });
   };
 
   return (
