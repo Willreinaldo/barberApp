@@ -7,8 +7,6 @@ async function main() {
   await prisma.barber.createMany({
     data: [
       { name: 'João' },
-      { name: 'Nathan' },
-      { name: 'Lucas' },
     ],
   });
 

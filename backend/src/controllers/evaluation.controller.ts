@@ -8,8 +8,12 @@ interface AuthenticatedRequest extends Request {
 
 export const createEvaluation = async (req: AuthenticatedRequest, res: Response): Promise<Response> => {
   try {
+    const userId = +req.body.userId; 
+    console.log(req.body);
+    if (isNaN(userId)) {
+      return res.status(400).json({ error: "Invalid user ID" });
+    }
     const { rating, comments } = req.body;
-    const userId = req.user?.id; // Acessa o user id a partir do middleware de autenticação
     if (!userId) {
       return res.status(401).json({ error: 'User not authenticated' });
     }
@@ -22,7 +26,8 @@ export const createEvaluation = async (req: AuthenticatedRequest, res: Response)
 
 export const getEvaluations = async (req: Request, res: Response): Promise<Response> => {
   try {
-    const evaluations = await getEvaluationsService();
+    const userId = +req.params.userId; 
+    const evaluations = await getEvaluationsService(userId);
     return res.status(200).json(evaluations);
   } catch (error) {
     return res.status(500).json({ error: 'Error fetching evaluations' });
@@ -31,8 +36,11 @@ export const getEvaluations = async (req: Request, res: Response): Promise<Respo
 
 export const getUserEvaluations = async (req: AuthenticatedRequest, res: Response): Promise<Response> => {
   try {
-    const userId = req.user?.id;
-    if (!userId) {
+    const userId = +req.params.userId; 
+    if (isNaN(userId)) {
+      return res.status(400).json({ error: "Invalid user ID" });
+    }   
+     if (!userId) {
       return res.status(401).json({ error: 'User not authenticated' });
     }
     const evaluations = await getUserEvaluationsService(userId);
@@ -45,7 +53,7 @@ export const getUserEvaluations = async (req: AuthenticatedRequest, res: Respons
 export const updateEvaluation = async (req: AuthenticatedRequest, res: Response): Promise<Response> => {
   try {
     const { rating, comments } = req.body;
-    const evaluationId = parseInt(req.params.id);
+    const evaluationId = parseInt(req.params.userId);
     const updatedEvaluation = await updateEvaluationService(evaluationId, { rating, comments });
     return res.status(200).json(updatedEvaluation);
   } catch (error) {
@@ -55,7 +63,7 @@ export const updateEvaluation = async (req: AuthenticatedRequest, res: Response)
 
 export const deleteEvaluation = async (req: AuthenticatedRequest, res: Response): Promise<Response> => {
   try {
-    const evaluationId = parseInt(req.params.id);
+    const evaluationId = parseInt(req.params.userId);
     await deleteEvaluationService(evaluationId);
     return res.status(200).json({ message: 'Evaluation deleted successfully' });
   } catch (error) {
