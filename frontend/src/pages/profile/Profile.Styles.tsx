@@ -84,8 +84,8 @@ export const ButtonModal = styled.button`
   font-size: 16px;
 
   &.cancel {
-    background-color: #ccc;
-    color: #000;
+    background-color: #0051b1;
+    color: #fff;
   }
 
   &.delete {
@@ -96,10 +96,9 @@ export const ButtonModal = styled.button`
 
 export const OpenModalButton = styled.button`
   padding: 10px 20px;
-  background-color: #3498db;
+  background-color: #0051b1;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
 `;
