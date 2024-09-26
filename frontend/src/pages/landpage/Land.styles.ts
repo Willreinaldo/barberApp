@@ -24,7 +24,7 @@ export const LinksContainer = styled.div`
     color: white; /* Cor do texto dos links */
     text-decoration: none; /* Remove o sublinhado dos links */
     transition: color 0.3s; /* Transição suave para a cor */
-    
+
     &:hover {
       color: blue; /* Cor ao passar o mouse */
     }
@@ -135,12 +135,11 @@ export const ImageLogo = styled.img`
 export const Main = styled.div`
   width: 100vw;
   position: relative;
-  min-height: calc(100vh - 5em); /* Calcula a altura para evitar o footer */
+  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 200px;
-  padding-bottom: 5em; /* Garante espaço suficiente para o footer */
   background-color: #2c2c2c;
 
   h2 {
@@ -156,20 +155,17 @@ export const Main = styled.div`
     text-align: center;
     margin-top: 20px;
     padding: 10px;
-    padding-bottom: 0; 
-    
     h2 {
       font-size: 28px;
     }
   }
 `;
-
 export const Footer = styled.footer`
   position: fixed;
   bottom: 0;
   display: flex;
   align-items: center;
-  height: 5em;
+  height: 100px;
   width: 100vw;
   background-color: #2c2c2c;
   padding-left: 20px;

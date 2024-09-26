@@ -2,7 +2,7 @@ import React from "react";
 import { CgProfile } from "react-icons/cg";
 import screen from "./screen_mural.jpeg";
 import logo from "../../assets/logo.png";
-import { FaInstagram, FaFacebook, FaLinkedin } from "react-icons/fa";
+import { FaInstagram, FaFacebook, FaLinkedin, FaStar } from "react-icons/fa";
 import {
   CascadeWrapper,
   Image,
@@ -53,6 +53,11 @@ const Landpage: React.FC = () => {
           <LogoCenter>
             <img src={logo} alt="logo do sistema" />
           </LogoCenter>
+          <ScheduleButton
+            onClick={() => (data ? navigate("/avaliar") : navigate("/login"))}
+          >
+           Ver avaliações <FaStar/>
+          </ScheduleButton>
           <ScheduleButton
             onClick={() => (data ? navigate("/agendar") : navigate("/login"))}
           >
