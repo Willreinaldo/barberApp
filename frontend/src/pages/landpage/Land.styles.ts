@@ -122,11 +122,12 @@ export const ImageLogo = styled.img`
 export const Main = styled.div`
   width: 100vw;
   position: relative;
-  height: 300px;
+  min-height: calc(100vh - 5em); /* Calcula a altura para evitar o footer */
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 200px;
+  padding-bottom: 5em; /* Garante espaço suficiente para o footer */
   background-color: #2c2c2c;
 
   h2 {
@@ -142,17 +143,20 @@ export const Main = styled.div`
     text-align: center;
     margin-top: 20px;
     padding: 10px;
+    padding-bottom: 0; 
+    
     h2 {
       font-size: 28px;
     }
   }
 `;
+
 export const Footer = styled.footer`
   position: fixed;
   bottom: 0;
   display: flex;
   align-items: center;
-  height: 100px;
+  height: 5em;
   width: 100vw;
   background-color: #2c2c2c;
   padding-left: 20px;

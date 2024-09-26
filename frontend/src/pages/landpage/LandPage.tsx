@@ -69,31 +69,31 @@ const Landpage: React.FC = () => {
           <DaySchedule>
             <p>
               Dom:
-              <br /> <span>07:00 - 11:00</span>
+              <br /> <span>13:00 - 18:00</span>
             </p>
             <p>
               Seg:
-              <br /> <span>07:00 - 11:00</span>
+              <br /> <span>13:00 - 18:00</span>
             </p>
             <p>
               Ter:
-              <br /> <span>07:00 - 11:00</span>
+              <br /> <span>13:00 - 18:00</span>
             </p>
             <p>
               Qua:
-              <br /> <span>07:00 - 11:00</span>
+              <br /> <span>13:00 - 18:00</span>
             </p>
             <p>
               Qui:
-              <br /> <span>07:00 - 11:00</span>
+              <br /> <span>13:00 - 18:00</span>
             </p>
             <p>
               Sex:
-              <br /> <span>07:00 - 11:00</span>
+              <br /> <span>13:00 - 18:00</span>
             </p>
             <p>
               Sab:
-              <br /> <span>07:00 - 11:00</span>
+              <br /> <span>13:00 - 18:00</span>
             </p>
           </DaySchedule>
         </Box>
