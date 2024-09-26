@@ -1,5 +1,5 @@
 // src/components/navbar/Navbar.tsx
-import React from "react";
+import React, {useEffect} from "react";
 import { useNavbarContext } from "../../contexts/NavbarContext";
 import {
   NavbarContainer,
@@ -10,10 +10,12 @@ import {
   NavLink,
   AvatarImage,
 } from "./Navbar.styles";
+import Accessibilik from 'accessibility-react-widget';
 
 const Navbar: React.FC = () => {
   const { avatarUrl } = useNavbarContext();
 
+  
   return (
     <NavbarContainer>
       <LogoContainer>
@@ -32,8 +34,11 @@ const Navbar: React.FC = () => {
           Sair
         </NavLink>
         <NavLink href="/profile">Perfil</NavLink>
+       <NavLink>
+       </NavLink>
         <AvatarImage src={avatarUrl} alt="Avatar" />
       </NavLinks>
+      <Accessibilik />
     </NavbarContainer>
   );
 };

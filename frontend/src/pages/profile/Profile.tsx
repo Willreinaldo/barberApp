@@ -1,16 +1,23 @@
 // src/pages/profile/Profile.tsx
-import React, { useEffect, useState } from 'react';
-import { ProfileContainer, Input, Button } from './Profile.Styles';
-import AvatarEdit from '../../components/avatar/AvatarEdit';
-import { useAuthContext, User } from '../../contexts/AuthContext';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AvatarEdit from "../../components/avatar/AvatarEdit";
+import { useAuthContext, User } from "../../contexts/AuthContext";
+import {
+  Button,
+  ButtonContainer,
+  Input,
+  ModalContainer,
+  ModalBackground,
+  ModalTitle,
+  ProfileContainer,
+} from "./Profile.Styles";
 
 const Profile: React.FC = () => {
-  
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const { authData, setAuthData } = useAuthContext();
   const user = authData?.user;
-
 
   interface UpdateUserData {
     name?: string;
@@ -19,12 +26,12 @@ const Profile: React.FC = () => {
     password?: string;
     avatarUrl?: string;
   }
-  
+
   const initialValues = {
-    name: user?.name || '',
-    email: user?.email || '',
-    phone: user?.phone || '',
-    password: '',
+    name: user?.name || "",
+    email: user?.email || "",
+    phone: user?.phone || "",
+    password: "",
     id: user?.id ?? 0,
     createdAt: user?.createdAt || new Date(),
     updatedAt: user?.updatedAt || new Date(),
@@ -33,7 +40,9 @@ const Profile: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [values, setValues] = useState(initialValues);
   const [tempValues, setTempValues] = useState(initialValues);
-  const [avatarUrl, setAvatarUrl] = useState<string>(user?.avatarUrl || './avatar.png');
+  const [avatarUrl, setAvatarUrl] = useState<string>(
+    user?.avatarUrl || "./avatar.png"
+  );
 
   useEffect(() => {
     if (user) {
@@ -41,12 +50,12 @@ const Profile: React.FC = () => {
         name: user.name,
         email: user.email,
         phone: user.phone,
-        password: '********',
+        password: "********",
         id: user.id,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
       });
-      setAvatarUrl(user.avatarUrl || './avatar.png');
+      setAvatarUrl(user.avatarUrl || "./avatar.png");
     }
   }, [user]);
 
@@ -59,31 +68,31 @@ const Profile: React.FC = () => {
     setIsEditing(false);
     setValues(tempValues);
 
-  const updatedData: UpdateUserData  = { ...tempValues, avatarUrl };
+    const updatedData: UpdateUserData = { ...tempValues, avatarUrl };
 
-  // Remove o campo de senha se não houver alteração
-  if (values.password === tempValues.password) {
-    delete updatedData.password;
-  }
+    // Remove o campo de senha se não houver alteração
+    if (values.password === tempValues.password) {
+      delete updatedData.password;
+    }
 
     try {
-       console.log("updatedData: ",updatedData);
-        const response = await fetch(`${apiUrl}/users/user/${user?.id}`, {
-        method: 'PUT',
+      console.log("updatedData: ", updatedData);
+      const response = await fetch(`${apiUrl}/users/user/${user?.id}`, {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
-         },
-        body: JSON.stringify({updatedData}),
-      }); 
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ updatedData }),
+      });
       if (response.ok) {
         console.log(response.ok);
         const updatedUser: User = await response.json();
-        setAuthData({ user: updatedUser, token: authData?.token || '' });
+        setAuthData({ user: updatedUser, token: authData?.token || "" });
       } else {
-        console.error('Failed to update profile');
+        console.error("Failed to update profile");
       }
     } catch (error) {
-      console.error('Failed to update profile:', error);
+      console.error("Failed to update profile:", error);
     }
   };
 
@@ -100,63 +109,92 @@ const Profile: React.FC = () => {
     setAvatarUrl(newAvatarUrl);
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const deleteAccount = () => {
+    navigate("/signin"); // Redireciona para a página de login
+  };
+
   return (
-    <>
-      <ProfileContainer>
-        {isEditing ? (
-          <AvatarEdit 
-            onAvatarChange={handleAvatarChange} 
-            currentAvatarUrl={avatarUrl} 
-          />
-        ) : (
-          <img 
-            src={avatarUrl} 
-            alt="Avatar" 
-            style={{ borderRadius: '50%', width: '10em', height: '10em' }} 
-          />
-        )}
-        <Input
-          type="text"
-          name="name"
-          value={isEditing ? tempValues.name : values.name}
-          readOnly={!isEditing}
-          onChange={handleChange}
-          placeholder="Nome"
+    <ProfileContainer>
+      {isModalOpen && (
+        <ModalBackground>
+          <ModalContainer>
+            <ModalTitle>Deseja excluir sua conta?</ModalTitle>
+            <ButtonContainer>
+              <Button className="cancel" onClick={closeModal}>
+                Cancelar
+              </Button>
+              <Button className="delete" onClick={deleteAccount}>
+                Excluir Conta
+              </Button>
+            </ButtonContainer>
+          </ModalContainer>
+        </ModalBackground>
+      )}
+      {isEditing ? (
+        <AvatarEdit
+          onAvatarChange={handleAvatarChange}
+          currentAvatarUrl={avatarUrl}
         />
-        <Input
-          type="email"
-          name="email"
-          value={isEditing ? tempValues.email : values.email}
-          readOnly={!isEditing}
-          onChange={handleChange}
-          placeholder="Email"
+      ) : (
+        <img
+          src={avatarUrl}
+          alt="Avatar"
+          style={{ borderRadius: "50%", width: "10em", height: "10em" }}
         />
-        <Input
-          type="tel"
-          name="phone"
-          value={isEditing ? tempValues.phone : values.phone}
-          readOnly={!isEditing}
-          onChange={handleChange}
-          placeholder="Telefone"
-        />
-        <Input
-          type="password"
-          name="password"
-          value={isEditing ? tempValues.password : ''}
-          readOnly={!isEditing}
-          onChange={handleChange}
-          placeholder="Senha"
-        />
-        {!isEditing ? (
-          <Button onClick={handleEditClick}>Editar meus dados</Button>
-        ) : (
-          <>
-            <Button onClick={handleSaveClick}>Salvar</Button>
-            <Button onClick={handleCancelClick}>Cancelar</Button>
-          </>
-        )}
-      </ProfileContainer>
-     </>
+      )}
+      <Input
+        type="text"
+        name="name"
+        value={isEditing ? tempValues.name : values.name}
+        readOnly={!isEditing}
+        onChange={handleChange}
+        placeholder="Nome"
+      />
+      <Input
+        type="email"
+        name="email"
+        value={isEditing ? tempValues.email : values.email}
+        readOnly={!isEditing}
+        onChange={handleChange}
+        placeholder="Email"
+      />
+      <Input
+        type="tel"
+        name="phone"
+        value={isEditing ? tempValues.phone : values.phone}
+        readOnly={!isEditing}
+        onChange={handleChange}
+        placeholder="Telefone"
+      />
+      <Input
+        type="password"
+        name="password"
+        value={isEditing ? tempValues.password : ""}
+        readOnly={!isEditing}
+        onChange={handleChange}
+        placeholder="Senha"
+      />
+      {!isEditing ? (
+        <Button onClick={handleEditClick}>Editar meus dados</Button>
+      ) : (
+        <>
+          <Button onClick={handleSaveClick}>Salvar</Button>
+          <Button onClick={openModal}>Excluir Conta</Button>
+          <Button onClick={handleCancelClick}>Cancelar</Button>
+        </>
+      )}
+    </ProfileContainer>
   );
 };
 

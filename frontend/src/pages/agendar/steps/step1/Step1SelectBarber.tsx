@@ -1,5 +1,6 @@
 import React from 'react';
 import {BarberOption} from './Step1SelectBarber.styles';
+import barberImage from '../../../../assets/barbeiro.png';
 
 import { Barber } from './../../AgendarCortePage.types';
 
@@ -18,7 +19,7 @@ const Step1SelectBarber: React.FC<Step1SelectBarberProps> = ({ barbers, selected
           selected={selectedBarber === barber}
           onClick={() => setSelectedBarber(barber)}
         >
-          <img src={barber.photo} alt={barber.name} />
+          <img src={barberImage} alt={barber.name} />
           {barber.name}
         </BarberOption>
       ))}

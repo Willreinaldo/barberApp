@@ -16,10 +16,14 @@ export const ScheduleButton = styled.button`
   }
 `;
 
+
 export const CascadeWrapper = styled.div`
   position: relative;
   width: 120px;
   height: 120px;
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const Image = styled.img<{ offsetx: number; offsety: number }>`
@@ -39,6 +43,9 @@ export const Image = styled.img<{ offsetx: number; offsety: number }>`
 `;
 export const LogoCenter = styled.div`
   width: 11px;
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const Container = styled.div`
@@ -50,6 +57,10 @@ export const Container = styled.div`
   align-items: center;
   /* justify-content: center; */
   background-color: #ffffff;
+
+  @media (max-width: 600px) {
+    justify-content: baseline;
+  }
 `;
 
 export const Header = styled.header`
@@ -62,6 +73,10 @@ export const Header = styled.header`
   padding: 20px;
   background-color: #0051b1;
   color: white;
+  @media (max-width: 600px) {
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 export const PageTitle = styled.h1`
@@ -72,6 +87,10 @@ export const PageTitle = styled.h1`
 export const ProfileIcon = styled.div`
   font-size: 32px;
   cursor: pointer;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const ImageContainer = styled.div`
@@ -89,6 +108,9 @@ export const ImageContainer = styled.div`
   &:hover {
     transform: scale(1.05);
   }
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const ImageLogo = styled.img`
@@ -100,11 +122,12 @@ export const ImageLogo = styled.img`
 export const Main = styled.div`
   width: 100vw;
   position: relative;
-  height: 300px;
+  min-height: calc(100vh - 5em); /* Calcula a altura para evitar o footer */
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 200px;
+  padding-bottom: 5em; /* Garante espaço suficiente para o footer */
   background-color: #2c2c2c;
 
   h2 {
@@ -113,16 +136,37 @@ export const Main = styled.div`
     margin: 20px;
     color: white;
   }
+
+  @media (max-width: 600px) {
+    gap: 20px;
+    height: auto;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    padding-bottom: 0; 
+    
+    h2 {
+      font-size: 28px;
+    }
+  }
 `;
+
 export const Footer = styled.footer`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   display: flex;
   align-items: center;
-  height: 100px;
+  height: 5em;
   width: 100vw;
   background-color: #2c2c2c;
   padding-left: 20px;
+
+  @media (max-width: 1350px) {
+    height: 80px;
+  }
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const Box = styled.div`
@@ -152,6 +196,16 @@ export const Box = styled.div`
   span {
     font-weight: 500;
   }
+  @media (max-width: 1024px) {
+    top: 250px;
+  }
+  @media (max-width: 840px) {
+    margin-right: 350px;
+  }
+  @media (max-width: 600px) {
+    margin: 0;
+    position: static;
+  }
 `;
 
 export const Box2 = styled.div`
@@ -180,6 +234,16 @@ export const Box2 = styled.div`
     display: flex;
     width: 100%;
     justify-content: space-evenly;
+  }
+  @media (max-width: 1024px) {
+    top: 250px;
+  }
+  @media (max-width: 840px) {
+    margin-left: 350px;
+  }
+  @media (max-width: 600px) {
+    margin: 0;
+    position: static;
   }
 `;
 

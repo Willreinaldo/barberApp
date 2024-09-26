@@ -9,6 +9,7 @@ interface EvaluationData {
 }
 
 export const createEvaluationRepository = async (data: EvaluationData): Promise<Evaluation> => {
+  console.log
   return prisma.evaluation.create({
     data: {
       rating: data.rating,
@@ -18,10 +19,19 @@ export const createEvaluationRepository = async (data: EvaluationData): Promise<
   });
 };
 
-export const getEvaluationsRepository = async (): Promise<Evaluation[]> => {
+export const getEvaluationsRepository = async (userId: number): Promise<Evaluation[]> => {
   return prisma.evaluation.findMany({
+    where: {
+      userId: {
+        not: userId, // Exclui as avaliações do usuário logado
+      },
+    },
     include: {
-      user: true,
+      user: {
+        select: {
+          name: true, 
+        },
+      },
     },
   });
 };
@@ -35,11 +45,21 @@ export const getUserEvaluationsRepository = async (userId: number): Promise<Eval
   });
 };
 
+
+
 export const updateEvaluationRepository = async (evaluationId: number, data: Partial<EvaluationData>): Promise<Evaluation> => {
-  return prisma.evaluation.update({
-    where: { id: evaluationId },
-    data,
-  });
+  
+  try {
+    const updatedEvaluation = await prisma.evaluation.update({
+      where: { id: evaluationId },
+      data,
+    });
+    
+    return updatedEvaluation; // Retorna a avaliação atualizada
+  } catch (error) {
+    console.error('Erro ao atualizar a avaliação:', error);
+    throw new Error('Não foi possível atualizar a avaliação.'); // Lança um erro para ser tratado em outro lugar, se necessário
+  }
 };
 
 export const deleteEvaluationRepository = async (evaluationId: number): Promise<void> => {

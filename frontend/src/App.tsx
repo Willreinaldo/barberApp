@@ -1,53 +1,54 @@
-// src/App.tsx
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/home/Home";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import Layout from "./components/layout/Layout";
+import { AuthProvider } from "./contexts/AuthContext";
+import { NavbarProvider } from "./contexts/NavbarContext";
+import VerifyCredentialToken from "./hooks/verifyCredential";
+import Agendamentos from "./pages/agendamento/Agendamentos";
+import AgendarCortePage from "./pages/agendar/AgendarCortePage";
+import Landpage from "./pages/landpage/LandPage";
 import Local from "./pages/Local/Local";
-import Sobre from "./pages/sobre/Sobre";
-import Servicos from "./pages/servicos/Servicos";
-import Profile from "./pages/profile/Profile";
 import LoginPage from "./pages/login/Login";
 import SignInPage from "./pages/login/SignIn";
-import Agendamentos from "./pages/agendamento/Agendamentos";
+import Profile from "./pages/profile/Profile";
 import GlobalStyle from "./Reset";
-import Layout from "./components/layout/Layout";
-import AgendarCortePage from "./pages/agendar/AgendarCortePage";
-import { NavbarProvider } from "./contexts/NavbarContext";
-import { AuthProvider } from "./contexts/AuthContext";
-import Landpage from "./pages/landpage/LandPage";
-import VerifyCredentialToken from "./hooks/verifyCredential";
+import Sobre from "./pages/sobre/Sobre";
+import Servicos from "./pages/servicos/Servicos";
+import Avaliacoes from "./pages/avaliacoes/Avaliacoes";
 
 const App: React.FC = () => {
   return (
     <Router>
-      <GlobalStyle />
-      <AuthProvider>
-        <NavbarProvider>
-          <Routes>
-            <Route path="/" element={<Landpage />} />
-            <Route path="/sobre" element={<Sobre/>} />
-            <Route path="/servicos" element={<Servicos/>} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signin" element={<SignInPage />} />
-            <Route
-              element={
-                <VerifyCredentialToken>
-                  <Layout />
-                </VerifyCredentialToken>
-              }
-            >
-              <Route path="/local" element={<Local />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/agendamentos" element={<Agendamentos />} />   
-              <Route path="/agendar" element={<AgendarCortePage/>} />
-            </Route>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signin" element={<SignInPage />} />
-          </Routes>
-        </NavbarProvider>
-      </AuthProvider>
-    </Router>
+        <GlobalStyle />
+        <AuthProvider>
+          <NavbarProvider>
+            <Routes>
+              <Route path="/" element={<Landpage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signin" element={<SignInPage />} />
+              <Route path="/sobre" element={<Sobre/>} />
+              <Route path="/servicos" element={<Servicos/>} />
+              <Route
+                element={
+                  <VerifyCredentialToken>
+                    <Layout />
+                  </VerifyCredentialToken>
+                }
+              >
+                <Route path="/local" element={<Local />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/agendamentos" element={<Agendamentos />} />
+                <Route path="/agendar" element={<AgendarCortePage />} />
+                <Route path="avaliar" element={<Avaliacoes/>} />
+              </Route>
+            </Routes>
+          </NavbarProvider>
+        </AuthProvider>
+      </Router>
   );
 };
 
 export default App;
+function injectStyle() {
+  throw new Error("Function not implemented.");
+}

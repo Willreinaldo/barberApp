@@ -9,6 +9,7 @@ import { useAuthContext } from './../../contexts/AuthContext';
 import { ButtonContainer, StyledButton, PageContainer, ErrorMessage } from './AgendarCortePage.styles';
 import { formatDate } from '../../utils/formatDate';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const barbers: Barber[] = [
   { id: 1, name: 'João', photo: '../../assets/barbeiro.png' },
@@ -31,8 +32,9 @@ const AgendarCortePage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>(''); 
 
   const { authData } = useAuthContext();
+  const navigate = useNavigate();
 
-    const userId = authData.user.id; 
+    const userId = authData!.user.id; 
     console.log(userId);
   const isTimeAvailable = async (dateTime: string): Promise<boolean> => {
     try {
@@ -122,6 +124,7 @@ const AgendarCortePage: React.FC = () => {
 
     try {
       await axios.post(`${apiUrl}/agendar/appointments`, appointmentData);
+      navigate("/");
       window.alert('Agendamento confirmado!');
     } catch (error) {
       setErrorMessage('Erro ao confirmar o agendamento. Tente novamente.');

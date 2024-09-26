@@ -1,47 +1,57 @@
-import React, { useState } from "react";
-import logo from "./logo.png";
+import { zodResolver } from "@hookform/resolvers/zod";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { z } from "zod";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { signIn } from "../../services/signIn";
 import {
-  ModalBackground,
-  Modal,
-  Title,
-  TitleLogo,
-  Logo,
+  Button,
   Container,
   Input,
-  Button,
+  Logo,
+  Modal,
+  ModalBackground,
   Navigator,
+  Title,
+  TitleLogo,
 } from "./Login.Styles";
-import { useNavigate } from "react-router-dom";
-import { signIn } from "../../services/signIn";
-import { useAuthContext } from "../../contexts/AuthContext";  
+import logo from "./logo.png";
 
- const LoginPage: React.FC = () => {
+const loginSchema = z.object({
+  email: z.string().email("Email inválido"),
+  password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
+});
 
-  const { setAuthData } = useAuthContext(); 
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
+type LoginFormData = z.infer<typeof loginSchema>;
+
+const LoginPage: React.FC = () => {
+  const { setAuthData } = useAuthContext();
+
   const navigate = useNavigate();
 
-  function handleForm(e:any) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-  async function doLogin(e:any) {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  async function doLogin(data: LoginFormData) {
+    console.log(data);
     try {
-      const userData = await signIn(form);
-      console.log(userData)
+      const userData = await signIn(data);
       if (userData) {
-         setAuthData({ user: userData.user, token: userData.token });
-        navigate("/");  
-      }     
-      navigate("/");
-    } catch (err) {
-      console.log(err);
+        setAuthData({ user: userData.user, token: userData.token });
+        navigate("/agendar");
+      }
+      navigate("/agendar");
+    } catch (err: any) {
+      console.log(err.response.data.message);
+      alert(err.response.data.message);
     }
   }
-
 
   return (
     <ModalBackground>
@@ -49,22 +59,22 @@ import { useAuthContext } from "../../contexts/AuthContext";
         <Logo src={logo} alt="Logo" />
         <TitleLogo>BARBER SHOP</TitleLogo>
       </Container>
-      <Modal onSubmit={doLogin}>
+      <Modal onSubmit={handleSubmit(doLogin)}>
         <Title>Login</Title>
         <Input
           type="email"
-          name="email"
           placeholder="Email"
-          value={form.email}
-          onChange={handleForm}
+          {...register("email")}
+          required
         />
+        {errors.email && <span>{errors.email.message}</span>}
         <Input
           type="password"
-          name="password"
           placeholder="Password"
-          value={form.password}
-          onChange={handleForm}
+          {...register("password")}
+          required
         />
+        {errors.password && <span>{errors.password.message}</span>}
         <Button type="submit">Entrar</Button>
         <Navigator onClick={() => navigate("/signin")}>
           Não possui cadastro? <span>Cadastrar</span>
@@ -75,7 +85,3 @@ import { useAuthContext } from "../../contexts/AuthContext";
 };
 
 export default LoginPage;
-function toast(arg0: string) {
-  throw new Error("Function not implemented.");
-}
-

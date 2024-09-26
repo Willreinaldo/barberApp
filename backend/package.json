@@ -15,6 +15,7 @@
   "scripts": {
     "start": "node src/app.ts",
     "dev": "nodemon src/app.ts",
+    "migrate": "prisma migrate dev",
     "generate": "ts-node src/script.ts"
   },
   "name": "backend",
