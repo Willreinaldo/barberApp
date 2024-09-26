@@ -7,8 +7,6 @@ import { ObjectSchema } from "joi";
 export function validateSchema(schema: ObjectSchema): Validation {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log("Iniciando validação do schema...");
-
       const { error, value } = schema.validate(req.body, { abortEarly: false });
 
       if (error) {
@@ -18,7 +16,6 @@ export function validateSchema(schema: ObjectSchema): Validation {
           .send(invalidDataError(error.details.map((d) => d.message)));
       }
 
-       console.log("Validação bem-sucedida, dados validados:");
       next();
 
     } catch (err) {

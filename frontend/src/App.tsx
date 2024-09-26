@@ -1,4 +1,3 @@
-// src/App.tsx
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Layout from "./components/layout/Layout";
@@ -13,6 +12,7 @@ import LoginPage from "./pages/login/Login";
 import SignInPage from "./pages/login/SignIn";
 import Profile from "./pages/profile/Profile";
 import GlobalStyle from "./Reset";
+import Avaliacoes from "./pages/avaliacoes/Avaliacoes";
 
 const App: React.FC = () => {
   return (
@@ -35,8 +35,8 @@ const App: React.FC = () => {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/agendamentos" element={<Agendamentos />} />
                 <Route path="/agendar" element={<AgendarCortePage />} />
+                <Route path="avaliar" element={<Avaliacoes/>} />
               </Route>
-              {/* Adicione outras rotas conforme necessário */}
             </Routes>
           </NavbarProvider>
         </AuthProvider>

@@ -5,9 +5,9 @@ const evaluationRouter:Router = Router();
 
 // Endpoint para CRUD de avaliações
 evaluationRouter.post("/evaluations", createEvaluation);
-evaluationRouter.get("/evaluations", getEvaluations);    // Todas as avaliações
-evaluationRouter.get("/evaluations/user", getUserEvaluations); // Avaliações do usuário logado
-evaluationRouter.put("/evaluations/:id", updateEvaluation);
-evaluationRouter.delete("/evaluations/:id", deleteEvaluation);
+evaluationRouter.get("/evaluations/others/:userId", getEvaluations);    
+evaluationRouter.get("/evaluations/user/:userId", getUserEvaluations); 
+evaluationRouter.put("/evaluations/:userId", updateEvaluation);
+evaluationRouter.delete("/evaluations/:userId", deleteEvaluation);
 
 export default evaluationRouter;

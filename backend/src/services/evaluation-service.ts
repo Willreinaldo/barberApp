@@ -11,8 +11,8 @@ export const createEvaluationService = async (data: EvaluationData): Promise<Eva
   return createEvaluationRepository(data);
 };
 
-export const getEvaluationsService = async (): Promise<Evaluation[]> => {
-  return getEvaluationsRepository();
+export const getEvaluationsService = async (userId: number): Promise<Evaluation[]> => {
+  return getEvaluationsRepository(userId);
 };
 
 export const getUserEvaluationsService = async (userId: number): Promise<Evaluation[]> => {
