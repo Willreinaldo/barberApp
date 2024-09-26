@@ -12,6 +12,8 @@ import LoginPage from "./pages/login/Login";
 import SignInPage from "./pages/login/SignIn";
 import Profile from "./pages/profile/Profile";
 import GlobalStyle from "./Reset";
+import Sobre from "./pages/sobre/Sobre";
+import Servicos from "./pages/servicos/Servicos";
 import Avaliacoes from "./pages/avaliacoes/Avaliacoes";
 
 const App: React.FC = () => {
@@ -24,6 +26,8 @@ const App: React.FC = () => {
               <Route path="/" element={<Landpage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signin" element={<SignInPage />} />
+              <Route path="/sobre" element={<Sobre/>} />
+              <Route path="/servicos" element={<Servicos/>} />
               <Route
                 element={
                   <VerifyCredentialToken>

@@ -11,6 +11,7 @@ import {
   Container,
   Header,
   PageTitle,
+  LinksContainer,
   ProfileIcon,
   ImageContainer,
   ImageLogo,
@@ -21,7 +22,6 @@ import {
   DaySchedule,
   Content,
 } from "./Land.styles";
-import { FaStar } from 'react-icons/fa';
 import beard from "../../assets/beard.png";
 import { useNavigate } from "react-router-dom";
 const Landpage: React.FC = () => {
@@ -53,11 +53,6 @@ const Landpage: React.FC = () => {
           <LogoCenter>
             <img src={logo} alt="logo do sistema" />
           </LogoCenter>
-          <ScheduleButton
-            onClick={() => (data ? navigate("/avaliar") : navigate("/login"))}
-          >
-           Ver avaliações <FaStar/>
-          </ScheduleButton>
           <ScheduleButton
             onClick={() => (data ? navigate("/agendar") : navigate("/login"))}
           >
@@ -110,6 +105,10 @@ const Landpage: React.FC = () => {
       </Main>
       <Footer>
         <img src={logo} alt="logo do sistema" />
+        <LinksContainer>
+        <a href="/sobre">Sobre</a>
+        <a href="/servicos">Serviços</a>
+      </LinksContainer>
       </Footer>
     </Container>
   );

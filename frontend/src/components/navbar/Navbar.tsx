@@ -27,6 +27,7 @@ const Navbar: React.FC = () => {
       <NavLinks>
         <NavLink href="/agendamentos">Agendamentos</NavLink>
         <NavLink href="/local">Localização</NavLink>
+
         <NavLink
           href="/login"
           onClick={() => localStorage.removeItem("authData")}

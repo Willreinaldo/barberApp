@@ -15,7 +15,21 @@ export const ScheduleButton = styled.button`
     transform: scale(1.05);
   }
 `;
+export const LinksContainer = styled.div`
+  display: flex;
+  gap: 15px; /* Espaçamento entre os links */
+  margin-left: 20px; /* Espaçamento entre a imagem e os links */
 
+  a {
+    color: white; /* Cor do texto dos links */
+    text-decoration: none; /* Remove o sublinhado dos links */
+    transition: color 0.3s; /* Transição suave para a cor */
+    
+    &:hover {
+      color: blue; /* Cor ao passar o mouse */
+    }
+  }
+`;
 export const CascadeWrapper = styled.div`
   position: relative;
   width: 120px;
