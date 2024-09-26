@@ -63,6 +63,12 @@ const Landpage: React.FC = () => {
           >
             Quero Agendar!
           </ScheduleButton>
+          <ScheduleButton
+            onClick={() => (data ? navigate("/avaliar") : navigate("/login"))}
+          >
+            <FaStar/>
+            Avaliações
+          </ScheduleButton>
         </Content>
         <Box>
           <h2>Horários de Atendimento</h2>

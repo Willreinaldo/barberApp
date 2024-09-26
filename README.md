@@ -1,9 +1,10 @@
 # Projeto Barber App
 
+### Alunos: Willian Reinaldo, Francisco Paulino e Gustavo Araujo.
 
 ## Descrição
 
-Este é um aplicativo de barbearia que permite agendar serviços, gerenciar barbearias e visualizar avaliações. O projeto é dividido em frontend e backend, ambos desenvolvidos com tecnologias modernas.
+Este é um aplicativo de barbearia que permite agendar e gerenciar um serviço além de criar ou visualizar avaliações sobre a barbearia. O projeto é dividido em frontend e backend, ambos desenvolvidos com tecnologias modernas, além de utilizar biblioteca de mapa e de acessibilidade.
 
 ## Tecnologias Utilizadas
 
