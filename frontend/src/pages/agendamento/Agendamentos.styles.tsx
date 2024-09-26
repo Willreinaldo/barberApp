@@ -78,7 +78,7 @@ export const Table = styled.table`
     }
 
     thead th {
-      font-size: 14px; /* Ajuste do tamanho da fonte no cabeçalho */
+      font-size: 14px; 
     }
   }
 `;
