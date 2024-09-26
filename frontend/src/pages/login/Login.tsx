@@ -1,8 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
+import {
+  ErrorModal,
+  ErrorModalContent,
+} from "../../components/ModalAlert/AlertBox";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { signIn } from "../../services/signIn";
 import {
@@ -28,6 +32,9 @@ type LoginFormData = z.infer<typeof loginSchema>;
 const LoginPage: React.FC = () => {
   const { setAuthData } = useAuthContext();
 
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+
   const navigate = useNavigate();
 
   const {
@@ -48,11 +55,41 @@ const LoginPage: React.FC = () => {
       }
       navigate("/agendar");
     } catch (err: any) {
-      console.log(err.response.data.message);
-      alert(err.response.data.message);
+      // console.log(err.response.data.message);
+      setErrorMessages((prevErrors) => [
+        ...prevErrors,
+        err.response.data.message,
+      ]);
+      setShowErrorModal(true);
     }
   }
 
+  useEffect(() => {
+    const newErrors: string[] = [];
+
+    if (errors.email) {
+      newErrors.push(errors.email.message || "Erro no campo de email.");
+    }
+
+    if (errors.password) {
+      newErrors.push(errors.password.message || "Erro no campo de senha.");
+    }
+
+    if (newErrors.length > 0) {
+      setErrorMessages(newErrors);
+      setShowErrorModal(true);
+    }
+  }, [errors]);
+
+  useEffect(() => {
+    if (showErrorModal) {
+      const timer = setTimeout(() => {
+        setShowErrorModal(false);
+        setErrorMessages([]);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showErrorModal]);
   return (
     <ModalBackground>
       <Container onClick={() => navigate("/")}>
@@ -65,21 +102,26 @@ const LoginPage: React.FC = () => {
           type="email"
           placeholder="Email"
           {...register("email")}
-          required
         />
-        {errors.email && <span>{errors.email.message}</span>}
         <Input
           type="password"
-          placeholder="Password"
+          placeholder="Senha"
           {...register("password")}
-          required
         />
-        {errors.password && <span>{errors.password.message}</span>}
         <Button type="submit">Entrar</Button>
         <Navigator onClick={() => navigate("/signin")}>
           Não possui cadastro? <span>Cadastrar</span>
         </Navigator>
       </Modal>
+      {showErrorModal && (
+        <ErrorModal>
+          <ErrorModalContent>
+            {errorMessages.map((message, index) => (
+              <p key={index}>{message}</p>
+            ))}
+          </ErrorModalContent>
+        </ErrorModal>
+      )}
     </ModalBackground>
   );
 };

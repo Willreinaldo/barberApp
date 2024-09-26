@@ -11,6 +11,8 @@ import {
   ModalBackground,
   ModalTitle,
   ProfileContainer,
+  OpenModalButton,
+  ButtonModal,
 } from "./Profile.Styles";
 import axios from "axios";
 
@@ -135,7 +137,7 @@ const Profile: React.FC = () => {
         navigate("/signin");
       })
       .catch((error) => {
-        console.error("Erro ao deletar aluno:", error);
+        console.error("Erro ao deletar usuário:", error);
       });
   };
 
@@ -146,12 +148,12 @@ const Profile: React.FC = () => {
           <ModalContainer>
             <ModalTitle>Deseja excluir sua conta?</ModalTitle>
             <ButtonContainer>
-              <Button className="cancel" onClick={closeModal}>
+              <ButtonModal className="cancel" onClick={closeModal}>
                 Cancelar
-              </Button>
-              <Button className="delete" onClick={deleteAccount}>
+              </ButtonModal>
+              <ButtonModal className="delete" onClick={deleteAccount}>
                 Excluir Conta
-              </Button>
+              </ButtonModal>
             </ButtonContainer>
           </ModalContainer>
         </ModalBackground>
@@ -205,7 +207,7 @@ const Profile: React.FC = () => {
       ) : (
         <>
           <Button onClick={handleSaveClick}>Salvar</Button>
-          <Button onClick={openModal}>Excluir Conta</Button>
+          <OpenModalButton onClick={openModal}>Excluir Conta</OpenModalButton>
           <Button onClick={handleCancelClick}>Cancelar</Button>
         </>
       )}
