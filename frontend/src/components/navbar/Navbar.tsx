@@ -17,14 +17,14 @@ const Navbar: React.FC = () => {
   return (
     <NavbarContainer>
       <LogoContainer>
-        <NavLink href="/agendar">
+        <NavLink href="/">
           <LogoText>BARBER SHOP</LogoText>
         </NavLink>
         <LogoImage src="/logo.png" alt="Logo" />
       </LogoContainer>
       <NavLinks>
         <NavLink href="/agendamentos">Agendamentos</NavLink>
-        <NavLink href="/avaliacoes">Avaliações</NavLink>
+        <NavLink href="/avaliar">Avaliações</NavLink>
         <NavLink href="/local">Localização</NavLink>
         <NavLink
           href="/login"

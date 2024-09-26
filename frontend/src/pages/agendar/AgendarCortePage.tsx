@@ -32,7 +32,7 @@ const AgendarCortePage: React.FC = () => {
 
   const { authData } = useAuthContext();
 
-    const userId = authData.user.id; 
+    const userId = authData!.user.id; 
     console.log(userId);
   const isTimeAvailable = async (dateTime: string): Promise<boolean> => {
     try {
