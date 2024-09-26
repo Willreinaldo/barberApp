@@ -48,7 +48,6 @@ const Sobre: React.FC = () => {
           </Box>
         </Section>
 
-        {/* Nova seção de imagens */}
         <ImageGrid>
           <ImageWrapper>
             <StyledImage src={Image1} alt="Imagem do serviço 1" />
@@ -82,11 +81,11 @@ const Sobre: React.FC = () => {
         </ImageGrid>
       </ContentContainer>
 
-      {/* O footer não será afetado pelo background */}
       <Footer>
         <Paragraph>Venha nos visitar e faça parte da nossa história!</Paragraph>
         <Paragraph>Contato: xxx@xxx.com</Paragraph>
-        <Paragraph>Endereço: Rua xxx, xx - Cidade, Estado</Paragraph>
+        <Paragraph> Localizada no Shopping Center da cidade - 
+        Av. Cmte. Vital Rolim, 989 - Jardim Adalgiza II, Cajazeiras - PB, 58900-000</Paragraph>
       </Footer>
     </div>
   );

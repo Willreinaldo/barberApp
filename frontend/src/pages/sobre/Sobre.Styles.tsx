@@ -109,7 +109,7 @@ export const ImageGrid = styled.div`
 
 export const ImageWrapper = styled.div`
   position: relative;
-  width: 500px; /* Define uma largura fixa para as imagens */
+  width: 10emm; 
   height: 300px;
   perspective: 1000px;
 

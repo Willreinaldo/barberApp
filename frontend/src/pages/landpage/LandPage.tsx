@@ -11,6 +11,7 @@ import {
   Container,
   Header,
   PageTitle,
+  LinksContainer,
   ProfileIcon,
   ImageContainer,
   ImageLogo,
@@ -21,7 +22,6 @@ import {
   DaySchedule,
   Content,
 } from "./Land.styles";
-import { FaStar } from 'react-icons/fa';
 import beard from "../../assets/beard.png";
 import { useNavigate } from "react-router-dom";
 const Landpage: React.FC = () => {
@@ -54,11 +54,6 @@ const Landpage: React.FC = () => {
             <img src={logo} alt="logo do sistema" />
           </LogoCenter>
           <ScheduleButton
-            onClick={() => (data ? navigate("/avaliar") : navigate("/login"))}
-          >
-           Ver avaliações <FaStar/>
-          </ScheduleButton>
-          <ScheduleButton
             onClick={() => (data ? navigate("/agendar") : navigate("/login"))}
           >
             Quero Agendar!
@@ -69,31 +64,31 @@ const Landpage: React.FC = () => {
           <DaySchedule>
             <p>
               Dom:
-              <br /> <span>13:00 - 18:00</span>
+              <br /> <span>07:00 - 11:00</span>
             </p>
             <p>
               Seg:
-              <br /> <span>13:00 - 18:00</span>
+              <br /> <span>07:00 - 11:00</span>
             </p>
             <p>
               Ter:
-              <br /> <span>13:00 - 18:00</span>
+              <br /> <span>07:00 - 11:00</span>
             </p>
             <p>
               Qua:
-              <br /> <span>13:00 - 18:00</span>
+              <br /> <span>07:00 - 11:00</span>
             </p>
             <p>
               Qui:
-              <br /> <span>13:00 - 18:00</span>
+              <br /> <span>07:00 - 11:00</span>
             </p>
             <p>
               Sex:
-              <br /> <span>13:00 - 18:00</span>
+              <br /> <span>07:00 - 11:00</span>
             </p>
             <p>
               Sab:
-              <br /> <span>13:00 - 18:00</span>
+              <br /> <span>07:00 - 11:00</span>
             </p>
           </DaySchedule>
         </Box>
@@ -110,6 +105,10 @@ const Landpage: React.FC = () => {
       </Main>
       <Footer>
         <img src={logo} alt="logo do sistema" />
+        <LinksContainer>
+        <a href="/sobre">Sobre</a>
+        <a href="/servicos">Serviços</a>
+      </LinksContainer>
       </Footer>
     </Container>
   );

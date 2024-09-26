@@ -16,7 +16,39 @@ export const ScheduleButton = styled.button`
   }
 `;
 
+export const FooterContainer = styled.footer`
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  height: 5em;
+  width: 100vw;
+  background-color: #2c2c2c;
+  padding-left: 20px;
 
+  @media (max-width: 1350px) {
+    height: 80px;
+  }
+  @media (max-width: 600px) {
+    display: none;
+  }
+`;
+
+export const LinksContainer = styled.div`
+  display: flex;
+  gap: 15px; /* Espaçamento entre os links */
+  margin-left: 20px; /* Espaçamento entre a imagem e os links */
+
+  a {
+    color: white; /* Cor do texto dos links */
+    text-decoration: none; /* Remove o sublinhado dos links */
+    transition: color 0.3s; /* Transição suave para a cor */
+    
+    &:hover {
+      color: blue; /* Cor ao passar o mouse */
+    }
+  }
+`;
 export const CascadeWrapper = styled.div`
   position: relative;
   width: 120px;
