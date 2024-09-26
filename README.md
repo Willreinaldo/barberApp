@@ -1,5 +1,6 @@
 # Projeto Barber App
 
+###Alunos: Willian Reinaldo, Francisco Paulino e Gustavo Araujo.
 
 ## Descrição
 
