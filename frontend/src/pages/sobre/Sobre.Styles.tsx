@@ -1,18 +1,17 @@
 import styled from 'styled-components';
-
-export const Container = styled.div`
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-`;
+import BackgroundImage from '../../pages/sobre/background2.jpg'; // Imagem de fundo
 
 export const Header = styled.header`
   text-align: center;
   margin-bottom: 30px;
+
+  h1 { /* Adiciona estilos diretamente ao título */
+    font-size: 3em; /* Aumenta o tamanho da fonte */
+    color: #FFD700; /* Muda a cor para dourado para mais destaque */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Adiciona sombra para melhor legibilidade */
+  }
 `;
+
 
 export const Section = styled.section`
   display: grid;
@@ -26,48 +25,46 @@ export const Section = styled.section`
 `;
 
 export const Box = styled.div`
-  background-color: #f8f8f8;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo preto transparente */
+  border: none; /* Remove bordas */
+  box-shadow: none; /* Remove a sombra */
+  padding: 20px; /* Adiciona padding para um melhor espaçamento interno */
   transition: transform 0.2s;
 
+  /* Efeito ao passar o mouse */
   &:hover {
-    transform: scale(1.02);
+    transform: scale(1.02); /* Mantém um efeito leve ao passar o mouse, se desejado */
   }
 `;
-
 export const Title = styled.h1`
   color: #333;
   font-family: 'Georgia', serif;
   font-size: 2.5em;
   margin-bottom: 10px;
 
-  /* Responsividade para Title */
   @media (max-width: 768px) {
     font-size: 2em;
   }
 `;
 
 export const Subtitle = styled.h2`
-  color: #444;
+  color: #FFD700; /* Amarelo dourado intenso */
   font-family: 'Arial', sans-serif;
   font-size: 1.8em;
   margin: 20px 0 10px;
 
-  /* Responsividade para Subtitle */
   @media (max-width: 768px) {
     font-size: 1.5em;
   }
 `;
 
+
 export const Paragraph = styled.p`
-  color: #666;
+  color: #FFFFFF; /* Branco intenso */
   line-height: 1.8;
   font-size: 1em;
   margin: 10px 0;
 
-  /* Responsividade para Paragraph */
   @media (max-width: 768px) {
     font-size: 0.9em;
   }
@@ -82,14 +79,11 @@ export const List = styled.ul`
     padding: 5px 0;
     position: relative;
     margin-left: 20px;
-
-    &:before {
-      position: absolute;
-      left: 0;
-      color: #4caf50;
-    }
+    color: #FFFFFF; /* Branco */
   }
 `;
+
+
 
 export const Footer = styled.footer`
   text-align: center;
@@ -100,12 +94,101 @@ export const Footer = styled.footer`
   color: white;
 `;
 
-export const ImageContainer = styled.div`
-  text-align: center;
-  margin: 20px 0;
+// Nova grid para imagens
+export const ImageGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Mesma estrutura de 3 colunas */
+  grid-gap: 20px; /* Espaçamento entre as imagens */
+  justify-items: center; /* Centraliza as imagens dentro de cada célula */
+  margin-bottom: 40px;
 
-  img {
-    max-width: 100%;
-    border-radius: 8px;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; /* Empilha as imagens no mobile */
   }
 `;
+
+export const ImageWrapper = styled.div`
+  position: relative;
+  width: 500px; /* Define uma largura fixa para as imagens */
+  height: 300px;
+  perspective: 1000px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+  }
+
+  &:hover {
+    img {
+      transform: rotateY(180deg);
+    }
+
+    div {
+      opacity: 1;
+      transform: rotateY(0deg);
+    }
+  }
+`;
+
+export const StyledImage = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.6s ease;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+`;
+
+export const OverlayText = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
+`;
+
+export const OverlayTitle = styled.h2`
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #FFD700;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+`;
+
+export const OverlayDescription = styled.p`
+  font-size: 1.1em;
+  line-height: 1.6;
+  text-align: center;
+  max-width: 90%;
+  font-family: 'Roboto', sans-serif;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+`;
+
+export const ContentContainer = styled.div`
+  background-image: url(${BackgroundImage});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 10px;
+`;
+
+
