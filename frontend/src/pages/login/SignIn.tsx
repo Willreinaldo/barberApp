@@ -1,22 +1,25 @@
-import React from "react";
-import logo from "./logo.png";
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { z } from "zod";
 import {
-  ModalBackground,
-  Modal,
-  Title,
-  TitleLogo,
-  Logo,
+  ErrorModal,
+  ErrorModalContent,
+} from "../../components/ModalAlert/AlertBox";
+import { signUp } from "../../services/signUp";
+import {
+  Button,
   Container,
   Input,
-  Button,
+  Logo,
+  Modal,
+  ModalBackground,
   Navigator,
+  Title,
+  TitleLogo,
 } from "./Login.Styles";
-import { signUp } from "../../services/signUp";
-import { toast, ToastContainer } from "react-toastify";
+import logo from "./logo.png";
 
 const signUpSchema = z.object({
   name: z.string().min(3, "O nome deve ter pelo menos 3 caracteres"),
@@ -29,6 +32,9 @@ type SignUpFormData = z.infer<typeof signUpSchema>;
 
 const SignInPage: React.FC = () => {
   const navigate = useNavigate();
+
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   const {
     register,
@@ -61,14 +67,48 @@ const SignInPage: React.FC = () => {
       alert("Cadastro realizado com sucesso!");
       navigate("/login");
     } catch (err: any) {
-      alert(err.response.data.message);
-      console.warn(err.response.data.message);
+      setErrorMessages((prevErrors) => [
+        ...prevErrors,
+        err.response.data.message,
+      ]);
+      setShowErrorModal(true);
     }
   }
 
-  function notify(message: string) {
-    toast.success(message);
-  }
+  useEffect(() => {
+    const newErrors: string[] = [];
+
+    if (errors.email) {
+      newErrors.push(errors.email.message || "Erro no campo de email.");
+    }
+
+    if (errors.password) {
+      newErrors.push(errors.password.message || "Erro no campo de senha.");
+    }
+
+    if (errors.name) {
+      newErrors.push(errors.name.message || "Erro no campo do nome.");
+    }
+
+    if (errors.phone) {
+      newErrors.push(errors.phone.message || "Erro no campo de telefone:");
+    }
+
+    if (newErrors.length > 0) {
+      setErrorMessages(newErrors);
+      setShowErrorModal(true);
+    }
+  }, [errors]);
+
+  useEffect(() => {
+    if (showErrorModal) {
+      const timer = setTimeout(() => {
+        setShowErrorModal(false);
+        setErrorMessages([]);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showErrorModal]);
 
   return (
     <ModalBackground>
@@ -81,19 +121,15 @@ const SignInPage: React.FC = () => {
 
         <Input
           type="email"
-          placeholder="Email"
+          placeholder="Informe seu email"
           {...register("email")}
-          required
         />
 
-        {errors.email && <span>{errors.email.message}</span>}
         <Input
           type="text"
           placeholder="Informe seu nome"
           {...register("name")}
-          required
         />
-        {errors.name && <span>{errors.name.message}</span>}
 
         <Input
           type="tel"
@@ -101,23 +137,28 @@ const SignInPage: React.FC = () => {
           placeholder="Informe seu telefone"
           {...register("phone")}
           onChange={handlePhoneChange}
-          required
         />
-        {errors.phone && <span>{errors.phone.message}</span>}
 
         <Input
           type="password"
-          placeholder="Password"
+          placeholder="Crie sua senha"
           {...register("password")}
-          required
         />
-        {errors.password && <span>{errors.password.message}</span>}
 
         <Button type="submit">Criar Conta</Button>
         <Navigator onClick={() => navigate("/login")}>
           Já possui cadastro? <span>Login</span>
         </Navigator>
       </Modal>
+      {showErrorModal && (
+        <ErrorModal>
+          <ErrorModalContent>
+            {errorMessages.map((message, index) => (
+              <p key={index}>{message}</p>
+            ))}
+          </ErrorModalContent>
+        </ErrorModal>
+      )}
     </ModalBackground>
   );
 };

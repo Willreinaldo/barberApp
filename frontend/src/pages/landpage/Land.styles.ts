@@ -16,7 +16,6 @@ export const ScheduleButton = styled.button`
   }
 `;
 
-
 export const CascadeWrapper = styled.div`
   position: relative;
   width: 120px;
@@ -43,7 +42,7 @@ export const Image = styled.img<{ offsetx: number; offsety: number }>`
 `;
 export const LogoCenter = styled.div`
   width: 11px;
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     display: none;
   }
 `;
@@ -98,7 +97,7 @@ export const ImageContainer = styled.div`
   top: 80px; /* Ajuste conforme necessário */
   width: 80%;
   max-width: 700px;
-  height: 250px;
+  height: 220px;
   background-color: #ddd;
   border-radius: 20px;
   overflow: hidden;
@@ -160,10 +159,8 @@ export const Footer = styled.footer`
   width: 100vw;
   background-color: #2c2c2c;
   padding-left: 20px;
+  height: 80px;
 
-  @media (max-width: 1350px) {
-    height: 80px;
-  }
   @media (max-width: 600px) {
     display: none;
   }
@@ -172,7 +169,7 @@ export const Footer = styled.footer`
 export const Box = styled.div`
   position: absolute;
   top: 200px;
-  width: 350px;
+  width: 300px;
   /* left: 400px; */
   margin-right: 500px;
   height: 249px;
@@ -211,7 +208,7 @@ export const Box = styled.div`
 export const Box2 = styled.div`
   position: absolute;
   top: 200px;
-  width: 350px;
+  width: 300px;
   margin-left: 500px;
   /* right: 400px; */
   height: 249px;

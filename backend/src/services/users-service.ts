@@ -1,7 +1,11 @@
 import { duplicatedEmailError, invalidCredentialsError } from "../errors";
-import { SignInParams, SignUpParams, updateUserParams  } from "../protocols/protocols";
+import {
+  SignInParams,
+  SignUpParams,
+  updateUserParams,
+} from "../protocols/protocols";
 import sessionRepository from "../repositories/sessions";
-import userRepository,{getUserRepository} from "../repositories/users";
+import userRepository, { getUserRepository } from "../repositories/users";
 import { exclude } from "../utils/prisma-utils";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -39,7 +43,7 @@ async function getUser(email: string) {
 }
 
 async function createUser(params: SignUpParams) {
-   const { name, email, password, phone } = params;
+  const { name, email, password, phone } = params;
 
   await validateUniqueEmail(email);
 
@@ -62,7 +66,7 @@ async function updateUser(id: number, params: updateUserParams) {
   try {
     const updatedData = (params as any).updatedData || params;
 
-     const { name, email, phone, password, avatarUrl } = updatedData;
+    const { name, email, phone, password, avatarUrl } = updatedData;
     console.log("Dados para atualização:", updatedData);
 
     const dataToUpdate: any = { name, email, phone, avatarUrl };
@@ -71,7 +75,7 @@ async function updateUser(id: number, params: updateUserParams) {
       dataToUpdate.password = await bcrypt.hash(password, 12);
     }
 
-     const updatedUser = await userRepository.update(id, dataToUpdate);
+    const updatedUser = await userRepository.update(id, dataToUpdate);
 
     return exclude(updatedUser, "password");
   } catch (error) {
@@ -81,20 +85,26 @@ async function updateUser(id: number, params: updateUserParams) {
 }
 export const getUserService = async (id: number) => {
   try {
-     const user = await getUserRepository(id);
+    const user = await getUserRepository(id);
 
-     return user;
+    return user;
   } catch (error) {
-    console.error('Erro ao buscar usuário no serviço:', error);
-    throw new Error('Erro ao buscar usuário no serviço');
+    console.error("Erro ao buscar usuário no serviço:", error);
+    throw new Error("Erro ao buscar usuário no serviço");
   }
 };
+
+export async function deleteUser(userId: number) {
+  const deleteResult = await userRepository.deleteUser(userId);
+  return deleteResult
+}
 
 export const userService = {
   signIn,
   createUser,
   updateUser,
-  getUserService
+  getUserService,
+  deleteUser,
 };
 
 export default userService;

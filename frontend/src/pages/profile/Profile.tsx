@@ -11,13 +11,17 @@ import {
   ModalBackground,
   ModalTitle,
   ProfileContainer,
+  OpenModalButton,
+  ButtonModal,
 } from "./Profile.Styles";
+import axios from "axios";
 
 const Profile: React.FC = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const { authData, setAuthData } = useAuthContext();
   const user = authData?.user;
+  const token = authData?.token;
 
   interface UpdateUserData {
     name?: string;
@@ -121,7 +125,20 @@ const Profile: React.FC = () => {
   };
 
   const deleteAccount = () => {
-    navigate("/signin"); // Redireciona para a página de login
+    axios
+      .delete(`${apiUrl}/users/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data.message);
+        localStorage.removeItem("authData");
+        navigate("/signin");
+      })
+      .catch((error) => {
+        console.error("Erro ao deletar usuário:", error);
+      });
   };
 
   return (
@@ -131,12 +148,12 @@ const Profile: React.FC = () => {
           <ModalContainer>
             <ModalTitle>Deseja excluir sua conta?</ModalTitle>
             <ButtonContainer>
-              <Button className="cancel" onClick={closeModal}>
+              <ButtonModal className="cancel" onClick={closeModal}>
                 Cancelar
-              </Button>
-              <Button className="delete" onClick={deleteAccount}>
+              </ButtonModal>
+              <ButtonModal className="delete" onClick={deleteAccount}>
                 Excluir Conta
-              </Button>
+              </ButtonModal>
             </ButtonContainer>
           </ModalContainer>
         </ModalBackground>
@@ -190,7 +207,7 @@ const Profile: React.FC = () => {
       ) : (
         <>
           <Button onClick={handleSaveClick}>Salvar</Button>
-          <Button onClick={openModal}>Excluir Conta</Button>
+          <OpenModalButton onClick={openModal}>Excluir Conta</OpenModalButton>
           <Button onClick={handleCancelClick}>Cancelar</Button>
         </>
       )}

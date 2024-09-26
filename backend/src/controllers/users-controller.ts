@@ -1,9 +1,8 @@
 import { SignInParams, SignUpParams } from "../protocols/protocols";
-import {userService, getUserService} from "../services/users-service";
+import { userService, getUserService } from "../services/users-service";
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
-  
- 
+
 export async function signIn(req: Request, res: Response, next: NextFunction) {
   const { email, password } = req.body as SignInParams;
 
@@ -31,33 +30,51 @@ export async function signUp(req: Request, res: Response, next: NextFunction) {
 }
 
 export const updateUser = async (req: Request, res: Response) => {
-    const userId = Number(req.params.id);
+  const userId = Number(req.params.id);
   const userData = req.body;
- 
+
   try {
     const updatedUser = await userService.updateUser(userId, userData);
-     res.json(updatedUser);
-   } catch (error) {
-    console.error('Failed to update user:', error);
-    res.status(500).json({ error: 'Failed to update user' });
+    res.json(updatedUser);
+  } catch (error) {
+    console.error("Failed to update user:", error);
+    res.status(500).json({ error: "Failed to update user" });
   }
 };
-
 
 export const getUser = async (req: Request, res: Response) => {
   const userId = Number(req.params.id);
 
-   try {
+  try {
     // Busca o usuário usando o serviço
     const user = await getUserService(userId);
-    
-     if (!user) {
-      return res.status(httpStatus.NOT_FOUND).json({ message: 'Usuário não encontrado' });
+
+    if (!user) {
+      return res
+        .status(httpStatus.NOT_FOUND)
+        .json({ message: "Usuário não encontrado" });
     }
 
-     res.json(user);
+    res.json(user);
   } catch (error) {
-    console.error('Erro ao buscar usuário:', error);
-    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: 'Erro ao buscar usuário' });
+    console.error("Erro ao buscar usuário:", error);
+    res
+      .status(httpStatus.INTERNAL_SERVER_ERROR)
+      .json({ error: "Erro ao buscar usuário" });
   }
 };
+
+export async function deleteUserProfile(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { userId }: any = req;
+    const result = await userService.deleteUser(userId);
+    console.log(result)
+    return res.status(httpStatus.OK).send({message:'Usuário deletado com sucesso'});
+  } catch (error) {
+    next(error);
+  }
+}
