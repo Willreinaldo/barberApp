@@ -55,7 +55,7 @@ const LoginPage: React.FC = () => {
       }
       navigate("/agendar");
     } catch (err: any) {
-      // console.log(err.response.data.message);
+      console.log(err.response.data.message);
       setErrorMessages((prevErrors) => [
         ...prevErrors,
         err.response.data.message,

@@ -44,7 +44,7 @@ async function getUser(email: string) {
 
 async function createUser(params: SignUpParams) {
   const { name, email, password, phone } = params;
-
+  console.log(params)
   await validateUniqueEmail(email);
 
   const hashPassword = await bcrypt.hash(password, 12);
