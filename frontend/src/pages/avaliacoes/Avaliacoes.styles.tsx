@@ -10,7 +10,26 @@ export const Container = styled.div`
   max-width: 1200px;
   margin: auto;
 `;
-
+export const NoEvaluationMessage = styled.p`
+  border: 0.125rem dashed #ccc;
+  padding: 1.2rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  background-color: #f9f9f9;
+  max-width: 25rem;
+  margin: 1.25rem auto;
+  font-size: 1rem;
+  color: #333;
+  min-height: 9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+export const ErrorMessage = styled.p`
+  color: red; // Ou outra cor que preferir
+  font-size: 0.875em;
+  margin-top: 0.5em;
+`;
 export const Title = styled.h1`
   font-size: 1.75rem;
   color: #333;
