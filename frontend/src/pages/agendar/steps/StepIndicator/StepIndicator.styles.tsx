@@ -11,6 +11,12 @@ export const StepIndicatorContainer = styled.div`
     flex-direction: column;
     align-items: center;
   }
+
+  @media (max-width:500px){
+    justify-content: space-evenly;
+    align-items: center;
+    width: 0%;
+  }
 `;
 
 export const Step = styled.div<{ active: boolean }>`
@@ -21,7 +27,7 @@ export const Step = styled.div<{ active: boolean }>`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: ${({ active }) => (active ? "#FFD700" : "#D3D3D3")};
+  background-color: ${({ active }) => (active ? "#1b80ed" : "#D3D3D3")};
   color: #fff;
   font-weight: bold;
 `;
@@ -30,4 +36,5 @@ export const StepLabel = styled.span`
   margin-top: 8px;
   font-size: 14px;
   text-align: center;
+  font-weight: bold;
 `;

@@ -5,16 +5,18 @@ export const BarberOption = styled.div<{ selected: boolean }>`
   align-items: center;
   padding: 3em;
   margin: 10px 0;
-  border: 1px solid ${({ selected }) => (selected ? '#FFD700' : '#ddd')};
+  width: 300px;
+  border: 2px solid ${({ selected }) => (selected ? '#0073ff' : '#ddd')};
   border-radius: 8px;
   cursor: pointer;
+  box-shadow: 1px solid gray;
 
   &:hover {
-    border-color: #FFD700;
+    border-color: #0886ee;
   }
 
   img {
-    width: 5.5em;
+    width: 6.0em;
     height: 5.5em;
     border-radius: 40%;
     margin-right: 15px;

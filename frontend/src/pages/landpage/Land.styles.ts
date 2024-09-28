@@ -10,9 +10,16 @@ export const ScheduleButton = styled.button`
   border: none;
   cursor: pointer;
   transition: transform 0.3s ease;
+
   &:hover {
     background-color: #0051b1;
     transform: scale(1.05);
+  }
+
+  @media (max-width: 600px) {
+    width: 180px;
+    height: 50px;
+    font-size: 1.2rem;
   }
 `;
 export const LinksContainer = styled.div`
@@ -155,6 +162,7 @@ export const Main = styled.div`
     text-align: center;
     margin-top: 20px;
     padding: 10px;
+    margin-bottom: 100px;
     h2 {
       font-size: 28px;
     }
@@ -172,7 +180,10 @@ export const Footer = styled.footer`
   height: 80px;
 
   @media (max-width: 600px) {
-    display: none;
+    height: 60px;
+  }
+  img {
+    height: 50px;
   }
 `;
 
@@ -269,5 +280,9 @@ export const Content = styled.article`
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  /* background-color: orange; */
+
+  @media (max-width: 400px) {
+    gap: 10px;
+    flex-direction: column;
+  }
 `;

@@ -17,7 +17,6 @@ export async function signIn(req: Request, res: Response, next: NextFunction) {
 
 export async function signUp(req: Request, res: Response, next: NextFunction) {
   const { name, email, password, phone } = req.body as SignUpParams;
-  console.log(req.body)
   try {
     const user = await userService.createUser({ name, email, password, phone });
     return res.status(httpStatus.CREATED).json({

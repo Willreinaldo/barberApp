@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ErrorModal = styled.div`
   position: fixed;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: rgba(255, 0, 0, 0.9);
