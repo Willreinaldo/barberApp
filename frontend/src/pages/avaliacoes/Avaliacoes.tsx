@@ -13,13 +13,16 @@ import {
   Input,
   TextArea,
   OtherEvaluationsTitle,
+  NoEvaluationMessage,
   DashedLine,
   EvaluationInfo,
   EvaluationRow,
   ButtonEdit,
-  ButtonDelete
+  ButtonDelete,
+  ErrorMessage // Adicione o styled component para mensagens de erro
 } from './Avaliacoes.styles';
 import { FaStar } from 'react-icons/fa';
+
 interface Evaluation {
   id: number;
   rating: number;
@@ -42,6 +45,8 @@ const Avaliacoes: React.FC = () => {
   const [editComment, setEditComment] = useState<string>(''); 
   const [rating, setRating] = useState<number>(1); 
   const [comments, setComments] = useState<string>(''); 
+  const [errorMessage, setErrorMessage] = useState<string>(''); // Estado para mensagem de erro
+  const [editErrorMessage, setEditErrorMessage] = useState<string>(''); // Erro ao editar
 
   const fetchMyEvaluations = async () => {
     try {
@@ -71,7 +76,7 @@ const Avaliacoes: React.FC = () => {
 
   const handleCreateEvaluation = async () => {
     if (comments.trim() === '') {
-      console.error('Comentário não pode ser vazio.');
+      setErrorMessage('Comentário não pode ser vazio.');
       return;
     }
 
@@ -89,6 +94,7 @@ const Avaliacoes: React.FC = () => {
       });
       setRating(1);
       setComments('');
+      setErrorMessage('');
       fetchMyEvaluations();
       fetchOtherEvaluations();
     } catch (error) {
@@ -99,9 +105,15 @@ const Avaliacoes: React.FC = () => {
   const handleStartEdit = (evaluation: Evaluation) => {
     setEditingEvaluationId(evaluation.id);
     setEditComment(evaluation.comments);
+    setEditErrorMessage(''); 
   };
 
   const handleSaveEdit = async (id: number) => {
+    if (editComment.trim() === '') {
+      setEditErrorMessage('Comentário não pode ser vazio.');
+      return;
+    }
+
     try {
       await axios.put(`${apiUrl}/avaliar/evaluations/${id}`, { comments: editComment }, {
         headers: {
@@ -109,6 +121,7 @@ const Avaliacoes: React.FC = () => {
         },
       });
       setEditingEvaluationId(null);
+      setEditErrorMessage('');
       fetchMyEvaluations();
     } catch (error) {
       console.error('Erro ao salvar avaliação:', error);
@@ -118,6 +131,7 @@ const Avaliacoes: React.FC = () => {
   const handleCancelEdit = () => {
     setEditingEvaluationId(null);
     setEditComment('');
+    setEditErrorMessage(''); 
   };
 
   const handleDeleteEvaluation = async (id: number) => {
@@ -154,22 +168,23 @@ const Avaliacoes: React.FC = () => {
                       onChange={(e) => setEditComment(e.target.value)}
                       placeholder="Edite seu comentário"
                     />
+                    {editErrorMessage && <ErrorMessage>{editErrorMessage}</ErrorMessage>}
                     <Button onClick={() => handleSaveEdit(evaluation.id)}>Salvar</Button>
                     <Button onClick={handleCancelEdit}>Cancelar</Button>
                   </>
                 ) : (
                   <>
                     <Comment>{evaluation.comments}</Comment>
-                    <Rating><FaStar/>{evaluation.rating}/5</Rating>
+                    <Rating><FaStar />{evaluation.rating}/5</Rating>
                   </>
                 )}
               </EvaluationRow>
               <ButtonEdit onClick={() => handleStartEdit(evaluation)}>Editar</ButtonEdit>
-                    <ButtonDelete onClick={() => handleDeleteEvaluation(evaluation.id)}>Excluir</ButtonDelete>
+              <ButtonDelete onClick={() => handleDeleteEvaluation(evaluation.id)}>Excluir</ButtonDelete>
             </EvaluationCard>
           ))
         ) : (
-          <p>Você ainda não fez nenhuma avaliação.</p>
+          <NoEvaluationMessage>Você ainda não fez nenhuma avaliação...</NoEvaluationMessage>
         )}
 
         <h3>Criar Nova Avaliação</h3>
@@ -183,9 +198,13 @@ const Avaliacoes: React.FC = () => {
         />
         <TextArea
           value={comments}
-          onChange={(e) => setComments(e.target.value)}
+          onChange={(e) => {
+            setComments(e.target.value);
+            setErrorMessage(''); 
+          }}
           placeholder="Comentário"
         />
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
         <Button onClick={handleCreateEvaluation}>Criar Avaliação</Button>
       </MyEvaluationSection>
 
@@ -198,7 +217,7 @@ const Avaliacoes: React.FC = () => {
             <EvaluationCard key={evaluation.id}>
               <EvaluationRow>
                 <EvaluationInfo>{evaluation.user.name} disse:</EvaluationInfo>
-                <Rating><FaStar/>{evaluation.rating}/5</Rating>
+                <Rating><FaStar />{evaluation.rating}/5</Rating>
               </EvaluationRow>
               <Comment>{evaluation.comments}</Comment>
             </EvaluationCard>
