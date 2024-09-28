@@ -2,12 +2,14 @@ import styled from "styled-components";
 
 export const PageContainer = styled.div`
   display: flex;
-  flex-direction: column; /
+  flex-direction: column; / 
   justify-content: center;
   align-items: center;
-  min-height: 79.2vh;  
-  height:90vh;
+  min-height: 78.2vh;  
+  height:84vh;
   background-color: #f0f0f0;
+  margin-bottom:2em;
+  padding-bottom:1.2em;
   padding-top: 2em;
   box-sizing: border-box; 
 `;
