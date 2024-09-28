@@ -10,9 +10,16 @@ export const ScheduleButton = styled.button`
   border: none;
   cursor: pointer;
   transition: transform 0.3s ease;
+
   &:hover {
     background-color: #0051b1;
     transform: scale(1.05);
+  }
+
+  @media (max-width: 600px) {
+    width: 180px;
+    height: 50px;
+    font-size: 1.2rem;
   }
 `;
 export const LinksContainer = styled.div`
@@ -24,7 +31,7 @@ export const LinksContainer = styled.div`
     color: white; /* Cor do texto dos links */
     text-decoration: none; /* Remove o sublinhado dos links */
     transition: color 0.3s; /* Transição suave para a cor */
-    
+
     &:hover {
       color: blue; /* Cor ao passar o mouse */
     }
@@ -135,12 +142,11 @@ export const ImageLogo = styled.img`
 export const Main = styled.div`
   width: 100vw;
   position: relative;
-  min-height: calc(100vh - 5em); /* Calcula a altura para evitar o footer */
+  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 200px;
-  padding-bottom: 5em; /* Garante espaço suficiente para o footer */
   background-color: #2c2c2c;
 
   h2 {
@@ -156,27 +162,28 @@ export const Main = styled.div`
     text-align: center;
     margin-top: 20px;
     padding: 10px;
-    padding-bottom: 0; 
-    
+    margin-bottom: 100px;
     h2 {
       font-size: 28px;
     }
   }
 `;
-
 export const Footer = styled.footer`
   position: fixed;
   bottom: 0;
   display: flex;
   align-items: center;
-  height: 5em;
+  height: 100px;
   width: 100vw;
   background-color: #2c2c2c;
   padding-left: 20px;
   height: 80px;
 
   @media (max-width: 600px) {
-    display: none;
+    height: 60px;
+  }
+  img {
+    height: 50px;
   }
 `;
 
@@ -273,5 +280,9 @@ export const Content = styled.article`
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  /* background-color: orange; */
+
+  @media (max-width: 400px) {
+    gap: 10px;
+    flex-direction: column;
+  }
 `;

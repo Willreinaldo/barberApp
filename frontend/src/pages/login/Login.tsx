@@ -55,12 +55,16 @@ const LoginPage: React.FC = () => {
       }
       navigate("/agendar");
     } catch (err: any) {
-      // console.log(err.response.data.message);
-      setErrorMessages((prevErrors) => [
-        ...prevErrors,
-        err.response.data.message,
-      ]);
-      setShowErrorModal(true);
+      if (err.response) {
+        setErrorMessages((prevErrors) => [
+          ...prevErrors,
+          err.response.data.message,
+        ]);
+        setShowErrorModal(true);
+      } else {
+        // Outro tipo de erro
+        console.error("Erro ao configurar a requisição:", err.message);
+      }
     }
   }
 
@@ -98,16 +102,8 @@ const LoginPage: React.FC = () => {
       </Container>
       <Modal onSubmit={handleSubmit(doLogin)}>
         <Title>Login</Title>
-        <Input
-          type="email"
-          placeholder="Email"
-          {...register("email")}
-        />
-        <Input
-          type="password"
-          placeholder="Senha"
-          {...register("password")}
-        />
+        <Input type="email" placeholder="Email" {...register("email")} />
+        <Input type="password" placeholder="Senha" {...register("password")} />
         <Button type="submit">Entrar</Button>
         <Navigator onClick={() => navigate("/signin")}>
           Não possui cadastro? <span>Cadastrar</span>

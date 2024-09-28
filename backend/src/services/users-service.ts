@@ -1,4 +1,7 @@
-import { duplicatedEmailError, invalidCredentialsError } from "../errors";
+import {
+  duplicatedEmailError,
+  invalidCredentialsError,
+} from "../errors";
 import {
   SignInParams,
   SignUpParams,
@@ -44,7 +47,6 @@ async function getUser(email: string) {
 
 async function createUser(params: SignUpParams) {
   const { name, email, password, phone } = params;
-
   await validateUniqueEmail(email);
 
   const hashPassword = await bcrypt.hash(password, 12);
@@ -61,6 +63,7 @@ async function validateUniqueEmail(email: string) {
   const findEmail = await userRepository.findByEmail(email);
   if (findEmail) throw duplicatedEmailError();
 }
+
 
 async function updateUser(id: number, params: updateUserParams) {
   try {
@@ -96,7 +99,7 @@ export const getUserService = async (id: number) => {
 
 export async function deleteUser(userId: number) {
   const deleteResult = await userRepository.deleteUser(userId);
-  return deleteResult
+  return deleteResult;
 }
 
 export const userService = {

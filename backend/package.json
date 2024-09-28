@@ -13,13 +13,15 @@
     "prisma": "^5.17.0"
   },
   "scripts": {
-    "start": "node src/app.ts",
+    "build":"npx tsc",
+    "start": "node dist/app.js",
     "dev": "nodemon src/app.ts",
     "migrate": "prisma migrate dev",
     "generate": "ts-node src/script.ts"
   },
   "name": "backend",
   "version": "1.0.0",
+  "type": "commonjs",
   "main": "server.js",
   "keywords": [],
   "author": "",

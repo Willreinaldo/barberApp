@@ -30,6 +30,13 @@ export function handleApplicationErrors(
     });
   }
 
+  if (err.name === "NotFoundError") {
+    return res.status(httpStatus.NOT_FOUND).send({
+      message: err.message,
+    });
+  }
+
+
   return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
     error: "InternalServerError",
     message: "Internal Server Error",

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // Wrapper para a imagem e o texto sobreposto
 export const ImageWrapper = styled.div`
@@ -16,7 +16,7 @@ export const ImageWrapper = styled.div`
     img {
       transform: rotateY(180deg);
     }
-    
+
     /* Exibe o texto sobre a imagem */
     div {
       opacity: 1;
@@ -52,7 +52,7 @@ export const OverlayText = styled.div`
   transition: opacity 0.6s ease, transform 0.6s ease;
   transform: rotateY(180deg); /* Inicia com a rotação inversa */
   backface-visibility: hidden; /* Oculta o lado de trás do texto */
-  
+
   @media (max-width: 768px) {
     font-size: 0.9rem; /* Diminui o tamanho do texto em dispositivos menores */
   }
@@ -63,9 +63,9 @@ export const OverlayTitle = styled.h2`
   font-size: 1.5em;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #FFD700; /* Cor dourada para destaque */
+  color: #ffd700; /* Cor dourada para destaque */
   text-align: center;
-  font-family: 'Playfair Display', serif; /* Aplica a fonte Playfair Display */
+  font-family: "Playfair Display", serif; /* Aplica a fonte Playfair Display */
 `;
 
 // Descrição organizada com Roboto
@@ -74,7 +74,7 @@ export const OverlayDescription = styled.p`
   line-height: 1.5;
   text-align: center;
   max-width: 80%;
-  font-family: 'Roboto', sans-serif; /* Aplica a fonte Roboto */
+  font-family: "Roboto", sans-serif; /* Aplica a fonte Roboto */
 
   @media (max-width: 768px) {
     font-size: 0.8rem; /* Ajusta o tamanho da descrição em telas menores */
@@ -91,6 +91,7 @@ export const ImageContainer = styled.div`
   @media (max-width: 768px) {
     flex-direction: column; /* Empilha as imagens verticalmente em telas menores */
     gap: 10px; /* Reduz o espaçamento entre as imagens */
+    margin-bottom: 200px;
   }
 `;
 
@@ -132,7 +133,7 @@ export const StyledImageLarge = styled.img`
 `;
 
 export const HighlightedTitle = styled.h2`
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 3rem; /* Aumenta o tamanho da frase */
   color: #000; /* Cor preta */
   margin-bottom: 20px; /* Aumenta o espaçamento entre o título e o texto */
@@ -165,6 +166,9 @@ export const Footer = styled.footer`
   padding: 20px 0;
   background-color: #333;
   color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
 `;
 
 export const Paragraph = styled.p`

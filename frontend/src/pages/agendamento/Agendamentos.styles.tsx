@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const PageContainer = styled.div`
   display: flex;
-  flex-direction: column; / 
+  flex-direction: column; /
   justify-content: center;
   align-items: center;
   min-height: 79.2vh;  

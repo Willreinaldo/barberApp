@@ -22,8 +22,6 @@ app.use(cors({
   .use("/users", userRoutes)
   .use("/agendar", appointmentRouter)
   .use("/avaliar", evaluationRouter)
-
-  
   .use(handleApplicationErrors);
 
 const PORT = process.env.PORT || 5002;

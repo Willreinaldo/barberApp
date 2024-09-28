@@ -9,20 +9,24 @@ async function findByEmail(email: string) {
   });
 }
 
-async function deleteUser(id:number){
+async function deleteUser(id: number) {
   return prisma.user.delete({
-    where:{
-      id
-    }
-  })
+    where: {
+      id,
+    },
+  });
 }
 
 async function create(data: Prisma.UserUncheckedCreateInput) {
-  return prisma.user.create({
-    data,
-  });
+  try {
+    return await prisma.user.create({
+      data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
- 
+
 async function update(id: number, data: Prisma.UserUpdateInput) {
   try {
     const updatedUser = await prisma.user.update({
@@ -33,13 +37,16 @@ async function update(id: number, data: Prisma.UserUpdateInput) {
     return updatedUser;
   } catch (error) {
     console.error(`Erro ao atualizar usuário com ID ${id}:`, error);
-    throw new Error("Não foi possível atualizar o usuário. Tente novamente mais tarde.");
+    throw new Error(
+      "Não foi possível atualizar o usuário. Tente novamente mais tarde."
+    );
   }
 }
 
 export const getUserRepository = async (id: number) => {
+  console.log(id);
   try {
-     const user = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id },
       select: {
         id: true,
@@ -53,17 +60,17 @@ export const getUserRepository = async (id: number) => {
     });
     return user;
   } catch (error) {
-    console.error('Erro ao buscar usuário no banco de dados:', error);
-    throw new Error('Erro ao buscar usuário no repositório');
+    console.error("Erro ao buscar usuário no banco de dados:", error);
+    throw new Error("Erro ao buscar usuário no repositório");
   }
 };
 
 const userRepository = {
   findByEmail,
   create,
-  update, 
+  update,
   getUserRepository,
-  deleteUser
+  deleteUser,
 };
 
 export default userRepository;

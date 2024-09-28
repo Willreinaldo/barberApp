@@ -5,12 +5,15 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 padding: 10px;
-margin: 10px 0;
-border: 1px solid ${({ selected }) => (selected ? '#FFD700' : '#ddd')};
+width: 200px;
+height: 100px;
+margin: 20px 0;
+border: 2px solid ${({ selected }) => (selected ? '#0073ff' : '#ddd')};
 border-radius: 8px;
+box-shadow: 1px solid gray;
 cursor: pointer;
 
 &:hover {
-  border-color: #FFD700;
+  border-color: #0886ee;
 }
 `;

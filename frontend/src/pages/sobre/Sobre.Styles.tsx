@@ -1,17 +1,17 @@
-import styled from 'styled-components';
-import BackgroundImage from '../../pages/sobre/background2.jpg'; // Imagem de fundo
+import styled from "styled-components";
+import BackgroundImage from "../../pages/sobre/background2.jpg"; // Imagem de fundo
 
 export const Header = styled.header`
   text-align: center;
   margin-bottom: 30px;
 
-  h1 { /* Adiciona estilos diretamente ao título */
+  h1 {
+    /* Adiciona estilos diretamente ao título */
     font-size: 3em; /* Aumenta o tamanho da fonte */
-    color: #FFD700; /* Muda a cor para dourado para mais destaque */
+    color: #ffd700; /* Muda a cor para dourado para mais destaque */
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Adiciona sombra para melhor legibilidade */
   }
 `;
-
 
 export const Section = styled.section`
   display: grid;
@@ -33,12 +33,14 @@ export const Box = styled.div`
 
   /* Efeito ao passar o mouse */
   &:hover {
-    transform: scale(1.02); /* Mantém um efeito leve ao passar o mouse, se desejado */
+    transform: scale(
+      1.02
+    ); /* Mantém um efeito leve ao passar o mouse, se desejado */
   }
 `;
 export const Title = styled.h1`
   color: #333;
-  font-family: 'Georgia', serif;
+  font-family: "Georgia", serif;
   font-size: 2.5em;
   margin-bottom: 10px;
 
@@ -48,8 +50,8 @@ export const Title = styled.h1`
 `;
 
 export const Subtitle = styled.h2`
-  color: #FFD700; /* Amarelo dourado intenso */
-  font-family: 'Arial', sans-serif;
+  color: #ffd700; /* Amarelo dourado intenso */
+  font-family: "Arial", sans-serif;
   font-size: 1.8em;
   margin: 20px 0 10px;
 
@@ -58,9 +60,8 @@ export const Subtitle = styled.h2`
   }
 `;
 
-
 export const Paragraph = styled.p`
-  color: #FFFFFF; /* Branco intenso */
+  color: #ffffff; /* Branco intenso */
   line-height: 1.8;
   font-size: 1em;
   margin: 10px 0;
@@ -79,11 +80,9 @@ export const List = styled.ul`
     padding: 5px 0;
     position: relative;
     margin-left: 20px;
-    color: #FFFFFF; /* Branco */
+    color: #ffffff; /* Branco */
   }
 `;
-
-
 
 export const Footer = styled.footer`
   text-align: center;
@@ -92,6 +91,9 @@ export const Footer = styled.footer`
   padding: 20px 0;
   background-color: #333;
   color: white;
+  position: fixed;
+  width: 100vw;
+  bottom: 0;
 `;
 
 // Nova grid para imagens
@@ -109,7 +111,7 @@ export const ImageGrid = styled.div`
 
 export const ImageWrapper = styled.div`
   position: relative;
-  width: 10emm; 
+  width: 10emm;
   height: 300px;
   perspective: 1000px;
 
@@ -166,9 +168,9 @@ export const OverlayTitle = styled.h2`
   font-size: 2em;
   font-weight: bold;
   margin-bottom: 15px;
-  color: #FFD700;
+  color: #ffd700;
   text-align: center;
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
 `;
 
 export const OverlayDescription = styled.p`
@@ -176,7 +178,7 @@ export const OverlayDescription = styled.p`
   line-height: 1.6;
   text-align: center;
   max-width: 90%;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 
   @media (max-width: 768px) {
     font-size: 1rem;
@@ -189,6 +191,5 @@ export const ContentContainer = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   padding: 10px;
+  margin-bottom: 200px;
 `;
-
-

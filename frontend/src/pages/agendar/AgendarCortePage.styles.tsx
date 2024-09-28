@@ -8,17 +8,18 @@ export const PageContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   min-height: 79vh;
-  justify-content: space-between; 
+  justify-content: space-evenly; 
 
   @media (max-width: 768px) {
     padding: 15px;
+    margin-bottom: 80px;
   }
 
   @media (max-width: 480px) {
     padding: 10px;
     flex-direction: column;
     width: 100%;
-    align-items: stretch;
+    align-items: center;
   }
 `;
 
@@ -71,13 +72,21 @@ export const ButtonContainer = styled.div`
 
 export const StyledButton = styled.button`
   padding: 10px 20px;
+  width: 14rem;
+  height: 4rem;
   border: none;
   border-radius: 4px;
   background-color: #0051b1;
-   color: #fff;
+  color: #fff;
   cursor: pointer;
+  font-size:1.2em;
   
   &:hover {
     background-color: #0041a1;
+  }
+
+  @media (max-width:500px){
+    width: 10rem;
+    height: 3rem;
   }
 `;

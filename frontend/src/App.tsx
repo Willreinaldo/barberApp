@@ -49,6 +49,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-function injectStyle() {
-  throw new Error("Function not implemented.");
-}
