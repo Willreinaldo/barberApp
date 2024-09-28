@@ -42,7 +42,7 @@ export const updateUser = async (req: Request, res: Response) => {
 };
 
 export const getUser = async (req: Request, res: Response) => {
-  const userId = Number(req.params.id);
+  const userId = Number(req?.params.id);
 
   try {
     // Busca o usuário usando o serviço
